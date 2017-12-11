@@ -9,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import ru.kpfu.itis.dmitryivanov.ApiResponse;
 import ru.kpfu.itis.dmitryivanov.RequestUserJson;
 import ru.kpfu.itis.dmitryivanov.ResponseCreator;
@@ -22,6 +23,8 @@ import java.util.UUID;
 /**
  * Created by Dmitry on 06.11.2017.
  */
+
+@RestController
 public class AuthController extends ResponseCreator {
     private static final PasswordEncoder encoder = new BCryptPasswordEncoder();
     @Autowired
