@@ -1,12 +1,15 @@
 package ru.kpfu.itis.dmitryivanov.model;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Dmitry on 30.10.2017.
  */
 
 @Entity
+@Table(name = "users")
 public class User extends AbstractEntity {
 
     private String username;
@@ -21,9 +24,11 @@ public class User extends AbstractEntity {
 
     private String about;
 
-    private Trip trips;
+    @OneToMany
+    private List<Trip> trips;
 
-    private User friends;
+    @ManyToMany
+    private List<User> friends;
 
     public String getUsername() {
         return username;
@@ -73,19 +78,19 @@ public class User extends AbstractEntity {
         this.about = about;
     }
 
-    public Trip getTrips() {
+    public List<Trip> getTrips() {
         return trips;
     }
 
-    public void setTrips(Trip trips) {
+    public void setTrips(List<Trip> trips) {
         this.trips = trips;
     }
 
-    public User getFriends() {
+    public List<User> getFriends() {
         return friends;
     }
 
-    public void setFriends(User friends) {
+    public void setFriends(List<User> friends) {
         this.friends = friends;
     }
 }

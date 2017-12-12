@@ -1,6 +1,10 @@
 package ru.kpfu.itis.dmitryivanov.model;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Dmitry on 30.10.2017.
@@ -13,21 +17,17 @@ public class Trip extends AbstractEntity {
 
     private String info;
 
-    private Place places;
+    @OneToMany
+    private List<Place> places;
 
     private Integer maxUserCount;
 
-    private User users;
+    @OneToMany
+    private List<User> users;
 
-    private Event events;
+    @OneToMany
+    private List<Event> events;
 
-    public Event getEvents() {
-        return events;
-    }
-
-    public void setEvents(Event events) {
-        this.events = events;
-    }
 
     public String getName() {
         return name;
@@ -45,14 +45,6 @@ public class Trip extends AbstractEntity {
         this.info = info;
     }
 
-    public Place getPlaces() {
-        return places;
-    }
-
-    public void setPlaces(Place places) {
-        this.places = places;
-    }
-
     public Integer getMaxUserCount() {
         return maxUserCount;
     }
@@ -61,11 +53,27 @@ public class Trip extends AbstractEntity {
         this.maxUserCount = maxUserCount;
     }
 
-    public User getUsers() {
+    public List<Place> getPlaces() {
+        return places;
+    }
+
+    public void setPlaces(List<Place> places) {
+        this.places = places;
+    }
+
+    public List<User> getUsers() {
         return users;
     }
 
-    public void setUsers(User users) {
+    public void setUsers(List<User> users) {
         this.users = users;
+    }
+
+    public List<Event> getEvents() {
+        return events;
+    }
+
+    public void setEvents(List<Event> events) {
+        this.events = events;
     }
 }

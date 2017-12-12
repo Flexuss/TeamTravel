@@ -1,6 +1,6 @@
 package ru.kpfu.itis.dmitryivanov.model;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 
 /**
  * Created by Dmitry on 30.10.2017.
@@ -13,8 +13,19 @@ public class Place extends AbstractEntity {
 
     private String info;
 
+    @ManyToOne
+    private Event event;
+
     public String getName() {
         return name;
+    }
+
+    public Event getEvent() {
+        return event;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
     }
 
     public void setName(String name) {
