@@ -12,4 +12,8 @@ import ru.kpfu.itis.dmitryivanov.model.User;
 public interface UserRepository extends JpaRepository<User, Long> {
 
     User findOneByUsername(String username);
+
+    User findOneByPhoneNumber(String phone);
+
+    User findOneByEmail(String email);
 }

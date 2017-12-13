@@ -9,4 +9,8 @@ public interface UserService {
     User findOneByUsername(String username);
 
     void save(User user);
+
+    Object findOneByPhone(String phone);
+
+    Object findOneByEmail(String email);
 }

@@ -12,6 +12,12 @@ import java.util.List;
 @Table(name = "users")
 public class User extends AbstractEntity {
 
+    private String phoneNumber;
+
+    private String email;
+
+    private String image;
+
     private String username;
 
     private String password;
@@ -20,8 +26,6 @@ public class User extends AbstractEntity {
 
     private String fio;
 
-    private Integer age;
-
     private String about;
 
     @OneToMany
@@ -29,6 +33,30 @@ public class User extends AbstractEntity {
 
     @ManyToMany
     private List<User> friends;
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 
     public String getUsername() {
         return username;
@@ -60,14 +88,6 @@ public class User extends AbstractEntity {
 
     public void setFio(String fio) {
         this.fio = fio;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
     }
 
     public String getAbout() {

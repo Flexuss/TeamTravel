@@ -1,6 +1,9 @@
 package ru.kpfu.itis.dmitryivanov;
 
-public class RequestUserJson {
+/**
+ * Created by Dmitry on 13.12.2017.
+ */
+public class RequestUserLoginJson {
     private String username;
     private String password;
 
