@@ -3,10 +3,7 @@ package ru.kpfu.itis.dmitryivanov.controller;
 import io.swagger.annotations.ApiImplicitParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.kpfu.itis.dmitryivanov.ApiResponse;
 import ru.kpfu.itis.dmitryivanov.ResponseCreator;
 import ru.kpfu.itis.dmitryivanov.model.User;
@@ -28,14 +25,14 @@ public class UserController extends ResponseCreator {
 
     @ApiImplicitParam(name = "Authorization", paramType = "header", required = true, dataType = "string")
     @RequestMapping(value = "/user", method = RequestMethod.GET)
-    private ResponseEntity<ApiResponse<User>> getUser(@RequestBody RequestUserJson requestUserJson){
-        User user = userService.findOneByUsername(requestUserJson.getUsername());
+    private ResponseEntity<ApiResponse<User>> getUser(@RequestParam(value = "username", required = true) String username){
+        User user = userService.findOneByUsername(username);
         return createGoodResponse(user);
     }
 
     @ApiImplicitParam(name = "Authorization", paramType = "header", required = true, dataType = "string")
     @RequestMapping(value = "/search", method = RequestMethod.GET)
-    private ResponseEntity<ApiResponse<ArrayList<User>>> findUsers(@RequestBody RequestUserJson requestUserJson){
+    private ResponseEntity<ApiResponse<ArrayList<User>>> findUsers(@RequestParam(value = "username", required = true) RequestUserJson requestUserJson){
         ArrayList<User> users = userService.findAllByUsername(requestUserJson.getUsername());
         return createGoodResponse(users);
     }
