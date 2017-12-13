@@ -32,8 +32,8 @@ public class UserController extends ResponseCreator {
 
     @ApiImplicitParam(name = "Authorization", paramType = "header", required = true, dataType = "string")
     @RequestMapping(value = "/search", method = RequestMethod.GET)
-    private ResponseEntity<ApiResponse<ArrayList<User>>> findUsers(@RequestParam(value = "username", required = true) RequestUserJson requestUserJson){
-        ArrayList<User> users = userService.findAllByUsername(requestUserJson.getUsername());
+    private ResponseEntity<ApiResponse<ArrayList<User>>> findUsers(@RequestParam(value = "username", required = true) String username){
+        ArrayList<User> users = userService.findAllByUsername(username);
         return createGoodResponse(users);
     }
 }
