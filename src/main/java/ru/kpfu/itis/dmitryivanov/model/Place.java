@@ -13,20 +13,30 @@ public class Place extends AbstractEntity {
 
     private String info;
 
-    @ManyToOne
-    private Event event;
+    private Double lon;
+
+    private Double lat;
+
+    public Double getLon() {
+        return lon;
+    }
+
+    public void setLon(Double lon) {
+        this.lon = lon;
+    }
+
+    public Double getLat() {
+        return lat;
+    }
+
+    public void setLat(Double lat) {
+        this.lat = lat;
+    }
 
     public String getName() {
         return name;
     }
 
-    public Event getEvent() {
-        return event;
-    }
-
-    public void setEvent(Event event) {
-        this.event = event;
-    }
 
     public void setName(String name) {
         this.name = name;

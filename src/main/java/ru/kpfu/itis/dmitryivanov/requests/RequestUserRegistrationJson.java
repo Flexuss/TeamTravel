@@ -1,4 +1,4 @@
-package ru.kpfu.itis.dmitryivanov;
+package ru.kpfu.itis.dmitryivanov.requests;
 
 public class RequestUserRegistrationJson {
     private String username;

@@ -10,8 +10,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import ru.kpfu.itis.dmitryivanov.*;
 import ru.kpfu.itis.dmitryivanov.model.User;
+import ru.kpfu.itis.dmitryivanov.requests.RequestUserLoginJson;
+import ru.kpfu.itis.dmitryivanov.requests.RequestUserRegistrationJson;
 import ru.kpfu.itis.dmitryivanov.service.SecurityService;
 import ru.kpfu.itis.dmitryivanov.service.UserService;
+
+import java.util.HashMap;
 
 /**
  * Created by Dmitry on 06.11.2017.
@@ -29,7 +33,7 @@ public class AuthController extends ResponseCreator {
 
 
     @RequestMapping(value = "/sign_in", method = RequestMethod.POST)
-    public ResponseEntity<ApiResponse<String>> loginAndGetToken(@RequestBody RequestUserLoginJson requestUserJson) {
+    public ResponseEntity<ApiResponse<HashMap<String,User>>> loginAndGetToken(@RequestBody RequestUserLoginJson requestUserJson) {
 
         User user = userService.findOneByUsername(requestUserJson.getUsername());
         if (user == null) {
@@ -39,7 +43,9 @@ public class AuthController extends ResponseCreator {
             return createBadResponse("Wrong username or password!");
         }
         String token = securityService.generateToken(requestUserJson.getUsername(), requestUserJson.getPassword());
-        return createGoodResponse(token);
+        HashMap<String, User> response = new HashMap<>();
+        response.put(token,user);
+        return createGoodResponse(response);
     }
 
     @RequestMapping(value = "/sign_up", method = RequestMethod.POST)

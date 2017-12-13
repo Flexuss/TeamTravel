@@ -6,6 +6,8 @@ import ru.kpfu.itis.dmitryivanov.model.User;
 import ru.kpfu.itis.dmitryivanov.repository.UserRepository;
 import ru.kpfu.itis.dmitryivanov.service.UserService;
 
+import java.util.ArrayList;
+
 /**
  * Created by Dmitry on 30.10.2017.
  */
@@ -34,5 +36,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findOneByEmail(String email) {
         return userRepository.findOneByEmail(email);
+    }
+
+    @Override
+    public ArrayList<User> findAllByUsername(String username) {
+        return userRepository.findAllByUsername(username);
     }
 }

@@ -1,4 +1,4 @@
-package ru.kpfu.itis.dmitryivanov;
+package ru.kpfu.itis.dmitryivanov.requests;
 
 /**
  * Created by Dmitry on 13.12.2017.

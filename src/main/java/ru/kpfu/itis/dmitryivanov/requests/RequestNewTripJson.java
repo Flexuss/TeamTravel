@@ -1,32 +1,26 @@
-package ru.kpfu.itis.dmitryivanov.model;
+package ru.kpfu.itis.dmitryivanov.requests;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import java.util.ArrayList;
+import ru.kpfu.itis.dmitryivanov.model.Event;
+import ru.kpfu.itis.dmitryivanov.model.Place;
+import ru.kpfu.itis.dmitryivanov.model.User;
+
 import java.util.Date;
 import java.util.List;
 
 /**
- * Created by Dmitry on 30.10.2017.
+ * Created by Dmitry on 13.12.2017.
  */
-
-@Entity
-public class Trip extends AbstractEntity {
-
+public class RequestNewTripJson {
     private String name;
 
     private String info;
 
-    @OneToMany
     private List<Place> places;
 
     private Integer maxUserCount;
 
-    @OneToMany
     private List<User> users;
 
-    @OneToMany
     private List<Event> events;
 
     private Date startDate;
@@ -34,29 +28,6 @@ public class Trip extends AbstractEntity {
     private boolean isPrivate;
 
     private String password;
-
-    public Trip(String name, String info, List<Place> places, Integer maxUserCount, List<User> users, List<Event> events, Date startDate, boolean isPrivate, String password) {
-        this.name = name;
-        this.info = info;
-        this.places = places;
-        this.maxUserCount = maxUserCount;
-        this.users = users;
-        this.events = events;
-        this.startDate = startDate;
-        this.isPrivate = isPrivate;
-        this.password = password;
-    }
-
-    public Trip(String name, String info, List<Place> places, Integer maxUserCount, List<User> users, List<Event> events, Date startDate, boolean isPrivate) {
-        this.name = name;
-        this.info = info;
-        this.places = places;
-        this.maxUserCount = maxUserCount;
-        this.users = users;
-        this.events = events;
-        this.startDate = startDate;
-        this.isPrivate = isPrivate;
-    }
 
     public Date getStartDate() {
         return startDate;
@@ -98,20 +69,20 @@ public class Trip extends AbstractEntity {
         this.info = info;
     }
 
-    public Integer getMaxUserCount() {
-        return maxUserCount;
-    }
-
-    public void setMaxUserCount(Integer maxUserCount) {
-        this.maxUserCount = maxUserCount;
-    }
-
     public List<Place> getPlaces() {
         return places;
     }
 
     public void setPlaces(List<Place> places) {
         this.places = places;
+    }
+
+    public Integer getMaxUserCount() {
+        return maxUserCount;
+    }
+
+    public void setMaxUserCount(Integer maxUserCount) {
+        this.maxUserCount = maxUserCount;
     }
 
     public List<User> getUsers() {
