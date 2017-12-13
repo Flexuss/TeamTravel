@@ -1,5 +1,6 @@
 package ru.kpfu.itis.dmitryivanov.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.kpfu.itis.dmitryivanov.model.User;
 import ru.kpfu.itis.dmitryivanov.repository.UserRepository;
@@ -12,6 +13,7 @@ import ru.kpfu.itis.dmitryivanov.service.UserService;
 @Service
 public class UserServiceImpl implements UserService {
 
+    @Autowired
     UserRepository userRepository;
 
     @Override
