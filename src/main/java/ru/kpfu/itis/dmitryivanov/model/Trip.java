@@ -13,6 +13,7 @@ import java.util.List;
 @Entity
 public class Trip extends AbstractEntity {
 
+    @ManyToOne
     private User creator;
 
     private String name;

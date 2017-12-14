@@ -13,5 +13,4 @@ import java.util.Date;
 
 @Repository
 public interface TripRepository extends JpaRepository<Trip, Long> {
-    ArrayList<Trip> findAllByNameAndStartDateAndIsPrivate(String name, Date startDate, boolean isPrivate);
 }

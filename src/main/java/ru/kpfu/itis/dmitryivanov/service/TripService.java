@@ -11,7 +11,5 @@ import java.util.Date;
 public interface TripService {
     void add(Trip trip);
 
-    ArrayList<Trip> findByNameAndStartDateAndIsPrivate(String name, Date startDate, boolean isPrivate);
-
     Trip findOneById(Long id);
 }

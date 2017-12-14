@@ -2,6 +2,7 @@ package ru.kpfu.itis.dmitryivanov.model;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,10 +18,20 @@ public class Place extends AbstractEntity {
 
     private Double lat;
 
+    private Date date;
+
     private ArrayList<String> photos;
 
     @OneToMany
     private List<Event> events;
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
 
     public ArrayList<String> getPhotos() {
         return photos;

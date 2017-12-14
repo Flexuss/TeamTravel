@@ -24,11 +24,6 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
-    public ArrayList<Trip> findByNameAndStartDateAndIsPrivate(String name, Date startDate, boolean isPrivate) {
-        return tripRepository.findAllByNameAndStartDateAndIsPrivate(name, startDate, isPrivate);
-    }
-
-    @Override
     public Trip findOneById(Long id) {
         return tripRepository.findOne(id);
     }

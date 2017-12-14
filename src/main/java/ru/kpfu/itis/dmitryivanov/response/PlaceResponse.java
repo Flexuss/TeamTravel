@@ -3,6 +3,7 @@ package ru.kpfu.itis.dmitryivanov.response;
 import ru.kpfu.itis.dmitryivanov.model.Event;
 
 import javax.persistence.OneToMany;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -15,10 +16,20 @@ public class PlaceResponse {
 
     private Double lat;
 
+    private Date date;
+
     private List<Event> events;
 
     public String getName() {
         return name;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public void setName(String name) {
