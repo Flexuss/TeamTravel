@@ -18,7 +18,7 @@ public class PlaceResponse {
 
     private Date date;
 
-    private List<Event> events;
+    private List<EventResponse> events;
 
     public String getName() {
         return name;
@@ -52,11 +52,11 @@ public class PlaceResponse {
         this.lat = lat;
     }
 
-    public List<Event> getEvents() {
+    public List<EventResponse> getEvents() {
         return events;
     }
 
-    public void setEvents(List<Event> events) {
+    public void setEvents(List<EventResponse> events) {
         this.events = events;
     }
 }
