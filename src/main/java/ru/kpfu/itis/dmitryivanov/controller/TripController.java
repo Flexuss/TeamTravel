@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.kpfu.itis.dmitryivanov.repository.PlaceRepository;
 import ru.kpfu.itis.dmitryivanov.repository.UserRepository;
 import ru.kpfu.itis.dmitryivanov.requests.PlaceRequestJson;
 import ru.kpfu.itis.dmitryivanov.response.*;
@@ -30,6 +31,9 @@ public class TripController extends ResponseCreator {
 
     @Autowired
     SecurityService securityService;
+
+    @Autowired
+    PlaceRepository placeRepository;
 
     @ApiImplicitParam(name = "Authorization", paramType = "header", required = true, dataType = "string")
     @RequestMapping(value = "/new_trip", method = RequestMethod.POST)

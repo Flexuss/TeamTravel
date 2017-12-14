@@ -16,7 +16,7 @@ public class RequestNewTripJson {
 
     private Place lastPlace;
 
-    private List<PlaceRequestJson> places;
+    private List<Place> places;
 
     private Integer maxUserCount;
 
@@ -72,11 +72,11 @@ public class RequestNewTripJson {
         this.info = info;
     }
 
-    public List<PlaceRequestJson> getPlaces() {
+    public List<Place> getPlaces() {
         return places;
     }
 
-    public void setPlaces(List<PlaceRequestJson> places) {
+    public void setPlaces(List<Place> places) {
         this.places = places;
     }
 
