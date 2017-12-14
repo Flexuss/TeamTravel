@@ -1,9 +1,9 @@
-package ru.kpfu.itis.dmitryivanov.response;
+package ru.kpfu.itis.dmitryivanov.requests;
 
 /**
  * Created by Dmitry on 14.12.2017.
  */
-public class EventResponse {
+public class EventRequestJson {
 
     private String name;
 

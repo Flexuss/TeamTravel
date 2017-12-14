@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.kpfu.itis.dmitryivanov.repository.UserRepository;
+import ru.kpfu.itis.dmitryivanov.requests.PlaceRequestJson;
 import ru.kpfu.itis.dmitryivanov.response.*;
 import ru.kpfu.itis.dmitryivanov.model.Trip;
 import ru.kpfu.itis.dmitryivanov.requests.RequestNewTripJson;
@@ -12,7 +13,6 @@ import ru.kpfu.itis.dmitryivanov.service.SecurityService;
 import ru.kpfu.itis.dmitryivanov.service.TripService;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * Created by Dmitry on 13.12.2017.
@@ -89,10 +89,10 @@ public class TripController extends ResponseCreator {
 
     @ApiImplicitParam(name = "Authorization", paramType = "header", required = true, dataType = "string")
     @RequestMapping(value = "/trip_places", method = RequestMethod.GET)
-    public ResponseEntity<ApiResponse<ArrayList<PlaceResponse>>> getTripPlaces(@RequestParam(value = "id", required = true) Long id){
-        ArrayList<PlaceResponse> places = new ArrayList<>();
+    public ResponseEntity<ApiResponse<ArrayList<PlaceRequestJson>>> getTripPlaces(@RequestParam(value = "id", required = true) Long id){
+        ArrayList<PlaceRequestJson> places = new ArrayList<>();
         for(int i=0;i<5;i++){
-            places.add(new PlaceResponse());
+            places.add(new PlaceRequestJson());
         }
         return createGoodResponse(places);
     }

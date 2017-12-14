@@ -1,15 +1,12 @@
-package ru.kpfu.itis.dmitryivanov.response;
+package ru.kpfu.itis.dmitryivanov.requests;
 
-import ru.kpfu.itis.dmitryivanov.model.Event;
-
-import javax.persistence.OneToMany;
 import java.util.Date;
 import java.util.List;
 
 /**
  * Created by Dmitry on 14.12.2017.
  */
-public class PlaceResponse {
+public class PlaceRequestJson {
     private String name;
 
     private Double lon;
@@ -18,7 +15,7 @@ public class PlaceResponse {
 
     private Date date;
 
-    private List<EventResponse> events;
+    private List<EventRequestJson> events;
 
     public String getName() {
         return name;
@@ -52,11 +49,11 @@ public class PlaceResponse {
         this.lat = lat;
     }
 
-    public List<EventResponse> getEvents() {
+    public List<EventRequestJson> getEvents() {
         return events;
     }
 
-    public void setEvents(List<EventResponse> events) {
+    public void setEvents(List<EventRequestJson> events) {
         this.events = events;
     }
 }

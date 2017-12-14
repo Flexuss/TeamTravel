@@ -13,9 +13,9 @@ public class TripResponse {
 
     private String info;
 
-    private PlaceResponse firstPlace;
+    private Place firstPlace;
 
-    private PlaceResponse lastPlace;
+    private Place lastPlace;
 
     private Integer maxUserCount;
 
@@ -45,19 +45,19 @@ public class TripResponse {
         this.info = info;
     }
 
-    public PlaceResponse getFirstPlace() {
+    public Place getFirstPlace() {
         return firstPlace;
     }
 
-    public void setFirstPlace(PlaceResponse firstPlace) {
+    public void setFirstPlace(Place firstPlace) {
         this.firstPlace = firstPlace;
     }
 
-    public PlaceResponse getLastPlace() {
+    public Place getLastPlace() {
         return lastPlace;
     }
 
-    public void setLastPlace(PlaceResponse lastPlace) {
+    public void setLastPlace(Place lastPlace) {
         this.lastPlace = lastPlace;
     }
 

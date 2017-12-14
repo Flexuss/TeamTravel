@@ -1,10 +1,7 @@
 package ru.kpfu.itis.dmitryivanov.requests;
 
-import ru.kpfu.itis.dmitryivanov.model.Event;
 import ru.kpfu.itis.dmitryivanov.model.Place;
-import ru.kpfu.itis.dmitryivanov.model.User;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -19,7 +16,7 @@ public class RequestNewTripJson {
 
     private Place lastPlace;
 
-    private List<Place> places;
+    private List<PlaceRequestJson> places;
 
     private Integer maxUserCount;
 
@@ -75,11 +72,11 @@ public class RequestNewTripJson {
         this.info = info;
     }
 
-    public List<Place> getPlaces() {
+    public List<PlaceRequestJson> getPlaces() {
         return places;
     }
 
-    public void setPlaces(List<Place> places) {
+    public void setPlaces(List<PlaceRequestJson> places) {
         this.places = places;
     }
 
