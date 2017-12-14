@@ -33,7 +33,7 @@ public class AuthController extends ResponseCreator {
 
 
     @RequestMapping(value = "/sign_in", method = RequestMethod.POST)
-    public ResponseEntity<ApiResponse<HashMap<String,User>>> loginAndGetToken(@RequestBody RequestUserLoginJson requestUserJson) {
+    public ResponseEntity<ApiResponse<AuthorizationResponse>> loginAndGetToken(@RequestBody RequestUserLoginJson requestUserJson) {
 
         User user = userService.findOneByUsername(requestUserJson.getUsername());
         if (user == null) {
@@ -43,9 +43,8 @@ public class AuthController extends ResponseCreator {
             return createBadResponse("Wrong username or password!");
         }
         String token = securityService.generateToken(requestUserJson.getUsername(), requestUserJson.getPassword());
-        HashMap<String, User> response = new HashMap<>();
-        response.put(token,user);
-        return createGoodResponse(response);
+
+        return createGoodResponse(new AuthorizationResponse(token,user));
     }
 
     @RequestMapping(value = "/sign_up", method = RequestMethod.POST)
