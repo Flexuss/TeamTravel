@@ -15,26 +15,32 @@ public class RequestNewTripJson {
 
     private String info;
 
+    private Place firstPlace;
+
+    private Place lastPlace;
+
     private List<Place> places;
 
     private Integer maxUserCount;
-
-    private List<User> users;
-
-    private List<Event> events;
-
-    private Date startDate;
 
     private boolean isPrivate;
 
     private String password;
 
-    public Date getStartDate() {
-        return startDate;
+    public Place getFirstPlace() {
+        return firstPlace;
     }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
+    public void setFirstPlace(Place firstPlace) {
+        this.firstPlace = firstPlace;
+    }
+
+    public Place getLastPlace() {
+        return lastPlace;
+    }
+
+    public void setLastPlace(Place lastPlace) {
+        this.lastPlace = lastPlace;
     }
 
     public boolean isPrivate() {
@@ -83,21 +89,5 @@ public class RequestNewTripJson {
 
     public void setMaxUserCount(Integer maxUserCount) {
         this.maxUserCount = maxUserCount;
-    }
-
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
-    }
-
-    public List<Event> getEvents() {
-        return events;
-    }
-
-    public void setEvents(List<Event> events) {
-        this.events = events;
     }
 }

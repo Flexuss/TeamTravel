@@ -1,16 +1,11 @@
-package ru.kpfu.itis.dmitryivanov.model;
+package ru.kpfu.itis.dmitryivanov.response;
 
-import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 /**
- * Created by Dmitry on 30.10.2017.
+ * Created by Dmitry on 14.12.2017.
  */
-
-@Entity
-@Table(name = "users")
-public class User extends AbstractEntity {
+public class UserInfoResponse {
 
     private String phoneNumber;
 
@@ -29,20 +24,6 @@ public class User extends AbstractEntity {
     private Date birthDate;
 
     private String interests;
-
-    @OneToMany
-    private List<Trip> trips;
-
-    @ManyToMany
-    private List<User> friends;
-
-    public Date getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
-    }
 
     public String getPhoneNumber() {
         return phoneNumber;
@@ -100,27 +81,19 @@ public class User extends AbstractEntity {
         this.fio = fio;
     }
 
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
+
     public String getInterests() {
         return interests;
     }
 
     public void setInterests(String interests) {
         this.interests = interests;
-    }
-
-    public List<Trip> getTrips() {
-        return trips;
-    }
-
-    public void setTrips(List<Trip> trips) {
-        this.trips = trips;
-    }
-
-    public List<User> getFriends() {
-        return friends;
-    }
-
-    public void setFriends(List<User> friends) {
-        this.friends = friends;
     }
 }

@@ -1,4 +1,4 @@
-package ru.kpfu.itis.dmitryivanov;
+package ru.kpfu.itis.dmitryivanov.response;
 
 import ru.kpfu.itis.dmitryivanov.model.User;
 
@@ -8,15 +8,14 @@ import ru.kpfu.itis.dmitryivanov.model.User;
 public class AuthorizationResponse {
     private String token;
 
-    private User user;
+    private UserInfoResponse user;
 
-    public AuthorizationResponse(String token, User user) {
+    public AuthorizationResponse(String token, UserInfoResponse user) {
         this.token = token;
         this.user = user;
     }
 
     public String getToken() {
-
         return token;
     }
 
@@ -24,11 +23,11 @@ public class AuthorizationResponse {
         this.token = token;
     }
 
-    public User getUser() {
+    public UserInfoResponse getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(UserInfoResponse user) {
         this.user = user;
     }
 }

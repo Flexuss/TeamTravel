@@ -15,33 +15,21 @@ import java.util.List;
 public class Event extends AbstractEntity {
     private String name;
 
-    @OneToOne
-    private Place place;
+    private String info;
 
-    @OneToOne
-    private Trip trip;
+    public String getInfo() {
+        return info;
+    }
 
-    public Place getPlace() {
-        return place;
+    public void setInfo(String info) {
+        this.info = info;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setPlace(Place place) {
-        this.place = place;
-    }
-
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Trip getTrip() {
-        return trip;
-    }
-
-    public void setTrip(Trip trip) {
-        this.trip = trip;
     }
 }

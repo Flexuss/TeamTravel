@@ -12,10 +12,12 @@ import ru.kpfu.itis.dmitryivanov.*;
 import ru.kpfu.itis.dmitryivanov.model.User;
 import ru.kpfu.itis.dmitryivanov.requests.RequestUserLoginJson;
 import ru.kpfu.itis.dmitryivanov.requests.RequestUserRegistrationJson;
+import ru.kpfu.itis.dmitryivanov.response.ApiResponse;
+import ru.kpfu.itis.dmitryivanov.response.AuthorizationResponse;
+import ru.kpfu.itis.dmitryivanov.response.ResponseCreator;
+import ru.kpfu.itis.dmitryivanov.response.UserInfoResponse;
 import ru.kpfu.itis.dmitryivanov.service.SecurityService;
 import ru.kpfu.itis.dmitryivanov.service.UserService;
-
-import java.util.HashMap;
 
 /**
  * Created by Dmitry on 06.11.2017.
@@ -44,7 +46,7 @@ public class AuthController extends ResponseCreator {
         }
         String token = securityService.generateToken(requestUserJson.getUsername(), requestUserJson.getPassword());
 
-        return createGoodResponse(new AuthorizationResponse(token,user));
+        return createGoodResponse(new AuthorizationResponse(token,new UserInfoResponse()));
     }
 
     @RequestMapping(value = "/sign_up", method = RequestMethod.POST)

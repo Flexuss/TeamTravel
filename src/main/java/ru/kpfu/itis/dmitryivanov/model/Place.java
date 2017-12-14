@@ -1,6 +1,8 @@
 package ru.kpfu.itis.dmitryivanov.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Dmitry on 30.10.2017.
@@ -11,11 +13,30 @@ public class Place extends AbstractEntity {
 
     private String name;
 
-    private String info;
-
     private Double lon;
 
     private Double lat;
+
+    private ArrayList<String> photos;
+
+    @OneToMany
+    private List<Event> events;
+
+    public ArrayList<String> getPhotos() {
+        return photos;
+    }
+
+    public void setPhotos(ArrayList<String> photos) {
+        this.photos = photos;
+    }
+
+    public List<Event> getEvents() {
+        return events;
+    }
+
+    public void setEvents(List<Event> events) {
+        this.events = events;
+    }
 
     public Double getLon() {
         return lon;
@@ -40,13 +61,5 @@ public class Place extends AbstractEntity {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getInfo() {
-        return info;
-    }
-
-    public void setInfo(String info) {
-        this.info = info;
     }
 }

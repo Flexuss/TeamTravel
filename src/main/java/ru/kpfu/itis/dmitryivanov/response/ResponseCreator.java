@@ -1,10 +1,11 @@
-package ru.kpfu.itis.dmitryivanov;
+package ru.kpfu.itis.dmitryivanov.response;
 
 /**
  * Created by Dmitry on 06.11.2017.
  */
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import ru.kpfu.itis.dmitryivanov.response.ApiResponse;
 
 
 public abstract class ResponseCreator {

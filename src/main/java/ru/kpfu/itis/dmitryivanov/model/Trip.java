@@ -1,8 +1,7 @@
 package ru.kpfu.itis.dmitryivanov.model;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.jws.soap.SOAPBinding;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -14,56 +13,74 @@ import java.util.List;
 @Entity
 public class Trip extends AbstractEntity {
 
+    private User creator;
+
     private String name;
 
     private String info;
+
+    private String photo;
+
+    @OneToOne
+    private Place firstPlace;
+
+    @OneToOne
+    private Place lastPlace;
 
     @OneToMany
     private List<Place> places;
 
     private Integer maxUserCount;
 
-    @OneToMany
+    @ManyToMany
     private List<User> users;
-
-    @OneToMany
-    private List<Event> events;
-
-    private Date startDate;
 
     private boolean isPrivate;
 
     private String password;
 
-    public Trip(String name, String info, List<Place> places, Integer maxUserCount, List<User> users, List<Event> events, Date startDate, boolean isPrivate, String password) {
+    public Trip(User creator, String name, String info, Place firstPlace, Place lastPlace, List<Place> places, Integer maxUserCount, boolean isPrivate, String password) {
+        this.creator = creator;
         this.name = name;
         this.info = info;
+        this.firstPlace = firstPlace;
+        this.lastPlace = lastPlace;
         this.places = places;
         this.maxUserCount = maxUserCount;
-        this.users = users;
-        this.events = events;
-        this.startDate = startDate;
         this.isPrivate = isPrivate;
         this.password = password;
     }
 
-    public Trip(String name, String info, List<Place> places, Integer maxUserCount, List<User> users, List<Event> events, Date startDate, boolean isPrivate) {
-        this.name = name;
-        this.info = info;
-        this.places = places;
-        this.maxUserCount = maxUserCount;
-        this.users = users;
-        this.events = events;
-        this.startDate = startDate;
-        this.isPrivate = isPrivate;
+    public String getPhoto() {
+        return photo;
     }
 
-    public Date getStartDate() {
-        return startDate;
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
+    public User getCreator() {
+        return creator;
+    }
+
+    public void setCreator(User creator) {
+        this.creator = creator;
+    }
+
+    public Place getFirstPlace() {
+        return firstPlace;
+    }
+
+    public void setFirstPlace(Place firstPlace) {
+        this.firstPlace = firstPlace;
+    }
+
+    public Place getLastPlace() {
+        return lastPlace;
+    }
+
+    public void setLastPlace(Place lastPlace) {
+        this.lastPlace = lastPlace;
     }
 
     public boolean isPrivate() {
@@ -120,13 +137,5 @@ public class Trip extends AbstractEntity {
 
     public void setUsers(List<User> users) {
         this.users = users;
-    }
-
-    public List<Event> getEvents() {
-        return events;
-    }
-
-    public void setEvents(List<Event> events) {
-        this.events = events;
     }
 }

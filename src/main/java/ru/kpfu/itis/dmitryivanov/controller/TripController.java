@@ -4,12 +4,10 @@ import io.swagger.annotations.ApiImplicitParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.kpfu.itis.dmitryivanov.ApiResponse;
-import ru.kpfu.itis.dmitryivanov.ResponseCreator;
+import ru.kpfu.itis.dmitryivanov.repository.UserRepository;
+import ru.kpfu.itis.dmitryivanov.response.*;
 import ru.kpfu.itis.dmitryivanov.model.Trip;
 import ru.kpfu.itis.dmitryivanov.requests.RequestNewTripJson;
-import ru.kpfu.itis.dmitryivanov.requests.RequestTripInfoJson;
-import ru.kpfu.itis.dmitryivanov.requests.RequestTripSearchJson;
 import ru.kpfu.itis.dmitryivanov.service.SecurityService;
 import ru.kpfu.itis.dmitryivanov.service.TripService;
 
@@ -28,6 +26,9 @@ public class TripController extends ResponseCreator {
     TripService tripService;
 
     @Autowired
+    UserRepository userRepository;
+
+    @Autowired
     SecurityService securityService;
 
     @ApiImplicitParam(name = "Authorization", paramType = "header", required = true, dataType = "string")
@@ -36,46 +37,63 @@ public class TripController extends ResponseCreator {
         boolean isPrivate = requestNewTripJson.isPrivate();
         Trip trip;
         if (isPrivate)
-            trip = new Trip(
+            trip = new Trip(securityService.getCurrentUser(),
                     requestNewTripJson.getName(),
                     requestNewTripJson.getInfo(),
+                    requestNewTripJson.getFirstPlace(),
+                    requestNewTripJson.getLastPlace(),
                     requestNewTripJson.getPlaces(),
                     requestNewTripJson.getMaxUserCount(),
-                    requestNewTripJson.getUsers(),
-                    requestNewTripJson.getEvents(),
-                    requestNewTripJson.getStartDate(),
-                    requestNewTripJson.isPrivate());
-        else
-            trip = new Trip(
-                    requestNewTripJson.getName(),
-                    requestNewTripJson.getInfo(),
-                    requestNewTripJson.getPlaces(),
-                    requestNewTripJson.getMaxUserCount(),
-                    requestNewTripJson.getUsers(),
-                    requestNewTripJson.getEvents(),
-                    requestNewTripJson.getStartDate(),
                     requestNewTripJson.isPrivate(),
                     requestNewTripJson.getPassword());
+        else
+            trip = new Trip(securityService.getCurrentUser(),
+                    requestNewTripJson.getName(),
+                    requestNewTripJson.getInfo(),
+                    requestNewTripJson.getFirstPlace(),
+                    requestNewTripJson.getLastPlace(),
+                    requestNewTripJson.getPlaces(),
+                    requestNewTripJson.getMaxUserCount(),
+                    requestNewTripJson.isPrivate(),
+                    "");
         tripService.add(trip);
         return createGoodResponse();
     }
 
     @ApiImplicitParam(name = "Authorization", paramType = "header", required = true, dataType = "string")
     @RequestMapping(value = "/search", method = RequestMethod.GET)
-    public ResponseEntity<ApiResponse<ArrayList<Trip>>> searchTrip(@RequestParam(value = "name", required = true) String name,
-                                                                   @RequestParam(value = "startDate", required = true) Date startDate,
-                                                                   @RequestParam(value = "isPrivate", required = true) Boolean isPrivate){
-        ArrayList<Trip> trips = tripService.findByNameAndStartDateAndIsPrivate(
-                name,
-                startDate,
-                isPrivate);
-        return createGoodResponse(trips);
+    public ResponseEntity<ApiResponse<ArrayList<TripResponse>>> searchTrip(@RequestParam(value = "name", required = true) String name){
+        ArrayList<TripResponse> tripResponse = new ArrayList<>();
+        for(int i=0;i<5;i++){
+            tripResponse.add(new TripResponse());
+        }
+        return createGoodResponse(tripResponse);
     }
 
     @ApiImplicitParam(name = "Authorization", paramType = "header", required = true, dataType = "string")
     @RequestMapping(value = "/trip_info", method = RequestMethod.GET)
-    public ResponseEntity<ApiResponse<Trip>> getTripInfo(@RequestParam(value = "id", required = true) Long id){
+    public ResponseEntity<ApiResponse<TripResponse>> getTripInfo(@RequestParam(value = "id", required = true) Long id){
         Trip trip = tripService.findOneById(id);
-        return createGoodResponse(trip);
+        return createGoodResponse(new TripResponse());
+    }
+
+    @ApiImplicitParam(name = "Authorization", paramType = "header", required = true, dataType = "string")
+    @RequestMapping(value = "/trip_users", method = RequestMethod.GET)
+    public ResponseEntity<ApiResponse<ArrayList<UserResponse>>> getTripUsers(@RequestParam(value = "id", required = true) Long id){
+        ArrayList<UserResponse> users = new ArrayList<>();
+        for(int i=0;i<5;i++){
+            users.add(new UserResponse());
+        }
+        return createGoodResponse(users);
+    }
+
+    @ApiImplicitParam(name = "Authorization", paramType = "header", required = true, dataType = "string")
+    @RequestMapping(value = "/trip_places", method = RequestMethod.GET)
+    public ResponseEntity<ApiResponse<ArrayList<PlaceResponse>>> getTripPlaces(@RequestParam(value = "id", required = true) Long id){
+        ArrayList<PlaceResponse> places = new ArrayList<>();
+        for(int i=0;i<5;i++){
+            places.add(new PlaceResponse());
+        }
+        return createGoodResponse(places);
     }
 }
