@@ -24,6 +24,8 @@ public class TripInfoResponse {
 
     private Integer currentUserCount;
 
+    private boolean isPrivate;
+
     public TripInfoResponse(Trip trip, List<PlaceResponse> places){
         this.setName(trip.getName());
         this.setInfo(trip.getInfo());
@@ -32,6 +34,15 @@ public class TripInfoResponse {
         this.setPlaces(places);
         this.setId(trip.getId());
         this.setPhoto(trip.getPhoto().getId());
+        this.setPrivate(trip.isPrivate());
+    }
+
+    public boolean isPrivate() {
+        return isPrivate;
+    }
+
+    public void setPrivate(boolean aPrivate) {
+        isPrivate = aPrivate;
     }
 
     public Long getPhoto() {

@@ -22,6 +22,16 @@ public class TripResponse {
 
     private Integer currentUserCount;
 
+    private boolean isPrivate;
+
+    public boolean isPrivate() {
+        return isPrivate;
+    }
+
+    public void setPrivate(boolean aPrivate) {
+        isPrivate = aPrivate;
+    }
+
     public Long getId() {
         return id;
     }
@@ -80,6 +90,7 @@ public class TripResponse {
             newTrip.setCurrentUserCount(trip.getUsers().size());
             newTrip.setId(trip.getId());
             newTrip.setPhoto(trip.getPhoto().getId());
+            newTrip.setPrivate(trip.isPrivate());
             tripResponse.add(newTrip);
         }
         return tripResponse;
