@@ -89,7 +89,9 @@ public class TripResponse {
             newTrip.setMaxUserCount(trip.getMaxUserCount());
             newTrip.setCurrentUserCount(trip.getUsers().size());
             newTrip.setId(trip.getId());
-            newTrip.setPhoto(trip.getPhoto().getId());
+            if(trip.getPhoto()!=null) {
+                newTrip.setPhoto(trip.getPhoto().getId());
+            }
             newTrip.setPrivate(trip.isPrivate());
             tripResponse.add(newTrip);
         }
