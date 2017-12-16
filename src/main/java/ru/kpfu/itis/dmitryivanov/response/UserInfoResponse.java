@@ -9,6 +9,8 @@ import java.util.Date;
  */
 public class UserInfoResponse {
 
+    private Long id;
+
     private String phoneNumber;
 
     private String email;
@@ -26,6 +28,7 @@ public class UserInfoResponse {
     private String interests;
 
     public UserInfoResponse(User user) {
+        this.setId(user.getId());
         this.setPhoneNumber(user.getPhoneNumber());
         this.setEmail(user.getEmail());
         this.setImage(user.getImage().getId());
@@ -33,6 +36,14 @@ public class UserInfoResponse {
         this.setCountry(user.getCountry());
         this.setFio(user.getFio());
         this.setBirthDate(user.getBirthDate());
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getPhoneNumber() {

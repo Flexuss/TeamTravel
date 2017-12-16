@@ -12,6 +12,8 @@ import java.util.List;
  */
 public class PlaceResponse {
 
+    private Long id;
+
     private String name;
 
     private String info;
@@ -23,6 +25,14 @@ public class PlaceResponse {
     private Date date;
 
     private List<Long> photos;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public List<Long> getPhotos() {
         return photos;
@@ -76,12 +86,13 @@ public class PlaceResponse {
         List<PlaceResponse> placeResponse = new ArrayList<>();
         for(Place place:places){
             PlaceResponse newPlace = new PlaceResponse();
+            newPlace.setId(place.getId());
             newPlace.setName(place.getName());
             newPlace.setInfo(place.getInfo());
             newPlace.setDate(place.getDate());
             newPlace.setLat(place.getLat());
             newPlace.setLon(place.getLon());
-            ArrayList photos = new ArrayList();
+            ArrayList<Long> photos = new ArrayList<>();
             for(Photo photo:place.getPhotos()){
                 photos.add(photo.getId());
             }
