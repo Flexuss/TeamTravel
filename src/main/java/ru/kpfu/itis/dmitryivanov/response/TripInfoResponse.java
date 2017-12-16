@@ -33,7 +33,9 @@ public class TripInfoResponse {
         this.setCurrentUserCount(trip.getUsers().size());
         this.setPlaces(places);
         this.setId(trip.getId());
-        this.setPhoto(trip.getPhoto().getId());
+        if(trip.getPhoto()!=null) {
+            this.setPhoto(trip.getPhoto().getId());
+        }
         this.setPrivate(trip.isPrivate());
     }
 
