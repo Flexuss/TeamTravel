@@ -1,5 +1,6 @@
 package ru.kpfu.itis.dmitryivanov.response;
 
+import ru.kpfu.itis.dmitryivanov.model.Photo;
 import ru.kpfu.itis.dmitryivanov.model.Trip;
 
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ public class TripResponse {
 
     private String info;
 
-    private String photo;
+    private Long photo;
 
     private Integer maxUserCount;
 
@@ -45,11 +46,11 @@ public class TripResponse {
         this.info = info;
     }
 
-    public String getPhoto() {
+    public Long getPhoto() {
         return photo;
     }
 
-    public void setPhoto(String photo) {
+    public void setPhoto(Long photo) {
         this.photo = photo;
     }
 
@@ -78,7 +79,7 @@ public class TripResponse {
             newTrip.setMaxUserCount(trip.getMaxUserCount());
             newTrip.setCurrentUserCount(trip.getUsers().size());
             newTrip.setId(trip.getId());
-            newTrip.setPhoto(trip.getPhoto());
+            newTrip.setPhoto(trip.getPhoto().getId());
             tripResponse.add(newTrip);
         }
         return tripResponse;

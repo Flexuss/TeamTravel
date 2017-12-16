@@ -20,7 +20,8 @@ public class Trip extends AbstractEntity {
 
     private String info;
 
-    private String photo;
+    @OneToOne
+    private Photo photo;
 
     @OneToMany
     private List<Place> places;
@@ -34,11 +35,11 @@ public class Trip extends AbstractEntity {
 
     private String password;
 
-    public String getPhoto() {
+    public Photo getPhoto() {
         return photo;
     }
 
-    public void setPhoto(String photo) {
+    public void setPhoto(Photo photo) {
         this.photo = photo;
     }
 

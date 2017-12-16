@@ -16,7 +16,7 @@ public class TripInfoResponse {
 
     private String info;
 
-    private String photo;
+    private Long photo;
 
     private List<PlaceResponse> places;
 
@@ -31,14 +31,14 @@ public class TripInfoResponse {
         this.setCurrentUserCount(trip.getUsers().size());
         this.setPlaces(places);
         this.setId(trip.getId());
-        this.setPhoto(trip.getPhoto());
+        this.setPhoto(trip.getPhoto().getId());
     }
 
-    public String getPhoto() {
+    public Long getPhoto() {
         return photo;
     }
 
-    public void setPhoto(String photo) {
+    public void setPhoto(Long photo) {
         this.photo = photo;
     }
 
