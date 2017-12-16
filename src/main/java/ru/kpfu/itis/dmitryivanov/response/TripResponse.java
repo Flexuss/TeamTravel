@@ -69,7 +69,7 @@ public class TripResponse {
         this.currentUserCount = currentUserCount;
     }
 
-    public static ArrayList<TripResponse> getTrips(ArrayList<Trip> trips) {
+    public static List<TripResponse> getTrips(List<Trip> trips) {
         ArrayList<TripResponse> tripResponse = new ArrayList<>();
         for(Trip trip: trips){
             TripResponse newTrip = new TripResponse();
@@ -79,6 +79,7 @@ public class TripResponse {
             newTrip.setCurrentUserCount(trip.getUsers().size());
             newTrip.setId(trip.getId());
             newTrip.setPhoto(trip.getPhoto());
+            tripResponse.add(newTrip);
         }
         return tripResponse;
     }

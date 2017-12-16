@@ -38,8 +38,8 @@ public class User extends AbstractEntity {
     @OneToMany
     private List<Trip> trips;
 
-    @ManyToMany
-    private List<User> friends;
+    public User() {
+    }
 
     public User(RequestUserRegistrationJson requestUserRegistrationJson) {
         PasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -130,11 +130,4 @@ public class User extends AbstractEntity {
         this.trips = trips;
     }
 
-    public List<User> getFriends() {
-        return friends;
-    }
-
-    public void setFriends(List<User> friends) {
-        this.friends = friends;
-    }
 }

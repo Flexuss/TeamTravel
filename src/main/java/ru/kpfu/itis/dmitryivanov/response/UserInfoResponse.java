@@ -31,7 +31,9 @@ public class UserInfoResponse {
         this.setId(user.getId());
         this.setPhoneNumber(user.getPhoneNumber());
         this.setEmail(user.getEmail());
-        this.setImage(user.getImage().getId());
+        if(user.getImage()!=null) {
+            this.setImage(user.getImage().getId());
+        }
         this.setUsername(user.getUsername());
         this.setCountry(user.getCountry());
         this.setFio(user.getFio());

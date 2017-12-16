@@ -50,6 +50,9 @@ public class Trip extends AbstractEntity {
         this.creator = creator;
     }
 
+    public Trip() {
+    }
+
     public boolean isPrivate() {
         return isPrivate;
     }

@@ -28,6 +28,9 @@ public class Place extends AbstractEntity {
     @OneToMany
     private List<Photo> photos;
 
+    public Place() {
+    }
+
     public Trip getTrip() {
         return trip;
     }

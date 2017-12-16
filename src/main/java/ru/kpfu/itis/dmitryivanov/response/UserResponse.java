@@ -14,11 +14,24 @@ public class UserResponse {
 
     private String fio;
 
+    private boolean isAllreadyFriend;
+
     public UserResponse(User user) {
         this.setId(user.getId());
         this.setUsername(user.getUsername());
         this.setFio(user.getFio());
-        this.setImage(user.getImage().getId());
+        if(user.getImage()!=null) {
+            this.setImage(user.getImage().getId());
+        }
+        this.setAllreadyFriend(false);
+    }
+
+    public boolean isAllreadyFriend() {
+        return isAllreadyFriend;
+    }
+
+    public void setAllreadyFriend(boolean allreadyFriend) {
+        isAllreadyFriend = allreadyFriend;
     }
 
     public Long getId() {
