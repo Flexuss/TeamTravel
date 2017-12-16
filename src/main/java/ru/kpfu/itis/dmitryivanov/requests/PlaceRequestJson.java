@@ -9,21 +9,11 @@ import java.util.List;
 public class PlaceRequestJson {
     private String name;
 
-    private String info;
-
     private Double lon;
 
     private Double lat;
 
     private Date date;
-
-    public String getInfo() {
-        return info;
-    }
-
-    public void setInfo(String info) {
-        this.info = info;
-    }
 
     public String getName() {
         return name;

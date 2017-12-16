@@ -16,8 +16,6 @@ public class PlaceResponse {
 
     private String name;
 
-    private String info;
-
     private Double lon;
 
     private Double lat;
@@ -50,14 +48,6 @@ public class PlaceResponse {
         this.name = name;
     }
 
-    public String getInfo() {
-        return info;
-    }
-
-    public void setInfo(String info) {
-        this.info = info;
-    }
-
     public Double getLon() {
         return lon;
     }
@@ -88,7 +78,6 @@ public class PlaceResponse {
             PlaceResponse newPlace = new PlaceResponse();
             newPlace.setId(place.getId());
             newPlace.setName(place.getName());
-            newPlace.setInfo(place.getInfo());
             newPlace.setDate(place.getDate());
             newPlace.setLat(place.getLat());
             newPlace.setLon(place.getLon());

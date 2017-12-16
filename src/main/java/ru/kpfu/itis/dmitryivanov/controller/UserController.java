@@ -71,6 +71,16 @@ public class UserController extends ResponseCreator {
     }
 
     @ApiImplicitParam(name = "Authorization", paramType = "header", required = true, dataType = "string")
+    @RequestMapping(value = "/my_friends", method = RequestMethod.GET)
+    private ResponseEntity<ApiResponse<ArrayList<UserResponse>>> myFriends(){
+        ArrayList<UserResponse> users = new ArrayList<>();
+        for(User user:friendService.getFriendsByUser(securityService.getCurrentUser())){
+            users.add(new UserResponse(user));
+        }
+        return createGoodResponse(users);
+    }
+
+    @ApiImplicitParam(name = "Authorization", paramType = "header", required = true, dataType = "string")
     @RequestMapping(value = "/add_friend", method = RequestMethod.POST)
     private ResponseEntity<ApiResponse<String>> addFriend(@RequestParam(value = "id", required = true) Long id){
         User currentUser = securityService.getCurrentUser();

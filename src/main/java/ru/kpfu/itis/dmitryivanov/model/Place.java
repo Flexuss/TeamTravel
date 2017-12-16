@@ -14,8 +14,6 @@ public class Place extends AbstractEntity {
 
     private String name;
 
-    private String info;
-
     private Double lon;
 
     private Double lat;
@@ -41,14 +39,6 @@ public class Place extends AbstractEntity {
 
     public Date getDate() {
         return date;
-    }
-
-    public String getInfo() {
-        return info;
-    }
-
-    public void setInfo(String info) {
-        this.info = info;
     }
 
     public void setDate(Date date) {

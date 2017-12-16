@@ -27,7 +27,6 @@ public class PlaceServiceImpl implements PlaceService {
         for(PlaceRequestJson place:places){
             Place newPlace = new Place();
             newPlace.setName(place.getName());
-            newPlace.setInfo(place.getInfo());
             newPlace.setDate(place.getDate());
             newPlace.setLat(place.getLat());
             newPlace.setLon(place.getLon());
