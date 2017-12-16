@@ -6,7 +6,6 @@ import ru.kpfu.itis.dmitryivanov.model.Place;
 import ru.kpfu.itis.dmitryivanov.model.Trip;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -15,9 +14,6 @@ import java.util.List;
 
 @Repository
 public interface TripRepository extends JpaRepository<Trip, Long> {
-    void save(List<Place> resultPlaces);
-
-    ArrayList<Place> findAllByTrip(Trip trip);
 
     ArrayList<Trip> findAllByName(String name);
 }

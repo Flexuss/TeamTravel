@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.kpfu.itis.dmitryivanov.model.Place;
 import ru.kpfu.itis.dmitryivanov.model.Trip;
+import ru.kpfu.itis.dmitryivanov.repository.PlaceRepository;
 import ru.kpfu.itis.dmitryivanov.repository.TripRepository;
 import ru.kpfu.itis.dmitryivanov.requests.PlaceRequestJson;
 import ru.kpfu.itis.dmitryivanov.service.PlaceService;
@@ -19,7 +20,7 @@ import java.util.List;
 public class PlaceServiceImpl implements PlaceService {
 
     @Autowired
-    TripRepository tripRepository;
+    PlaceRepository placeRepository;
     @Override
     public ArrayList<Place> createPlaces(List<PlaceRequestJson> places, Trip trip) {
         List<Place> resultPlaces = new ArrayList<>();
@@ -33,7 +34,7 @@ public class PlaceServiceImpl implements PlaceService {
             newPlace.setTrip(trip);
             resultPlaces.add(newPlace);
         }
-        tripRepository.save(resultPlaces);
-        return tripRepository.findAllByTrip(trip);
+        placeRepository.save(resultPlaces);
+        return placeRepository.findAllByTrip(trip);
     }
 }

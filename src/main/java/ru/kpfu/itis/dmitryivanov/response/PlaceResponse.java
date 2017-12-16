@@ -1,5 +1,6 @@
 package ru.kpfu.itis.dmitryivanov.response;
 
+import ru.kpfu.itis.dmitryivanov.model.Photo;
 import ru.kpfu.itis.dmitryivanov.model.Place;
 
 import java.util.ArrayList;
@@ -21,13 +22,13 @@ public class PlaceResponse {
 
     private Date date;
 
-    private List<String> photos;
+    private List<Long> photos;
 
-    public List<String> getPhotos() {
+    public List<Long> getPhotos() {
         return photos;
     }
 
-    public void setPhotos(List<String> photos) {
+    public void setPhotos(List<Long> photos) {
         this.photos = photos;
     }
 
@@ -80,7 +81,11 @@ public class PlaceResponse {
             newPlace.setDate(place.getDate());
             newPlace.setLat(place.getLat());
             newPlace.setLon(place.getLon());
-            newPlace.setPhotos(place.getPhotos());
+            ArrayList photos = new ArrayList();
+            for(Photo photo:place.getPhotos()){
+                photos.add(photo.getId());
+            }
+            newPlace.setPhotos(photos);
         }
         return placeResponse;
     }

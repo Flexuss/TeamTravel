@@ -6,23 +6,23 @@ import ru.kpfu.itis.dmitryivanov.model.User;
  * Created by Dmitry on 14.12.2017.
  */
 public class UserResponse {
-    private String image;
+    private Long image;
 
     private String username;
 
     private String fio;
 
     public UserResponse(User user) {
-        this.setImage(user.getImage());
         this.setUsername(user.getUsername());
         this.setFio(user.getFio());
+        this.setImage(user.getImage().getId());
     }
 
-    public String getImage() {
+    public Long getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(Long image) {
         this.image = image;
     }
 

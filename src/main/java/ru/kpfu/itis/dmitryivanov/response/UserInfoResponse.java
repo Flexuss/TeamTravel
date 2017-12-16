@@ -13,7 +13,7 @@ public class UserInfoResponse {
 
     private String email;
 
-    private String image;
+    private Long image;
 
     private String username;
 
@@ -28,7 +28,7 @@ public class UserInfoResponse {
     public UserInfoResponse(User user) {
         this.setPhoneNumber(user.getPhoneNumber());
         this.setEmail(user.getEmail());
-        this.setImage(user.getImage());
+        this.setImage(user.getImage().getId());
         this.setUsername(user.getUsername());
         this.setCountry(user.getCountry());
         this.setFio(user.getFio());
@@ -51,11 +51,11 @@ public class UserInfoResponse {
         this.email = email;
     }
 
-    public String getImage() {
+    public Long getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(Long image) {
         this.image = image;
     }
 

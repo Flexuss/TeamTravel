@@ -45,7 +45,7 @@ public class AuthController extends ResponseCreator {
             return createBadResponse("Wrong username or password!");
         }
         String token = securityService.generateToken(requestUserJson.getUsername(), requestUserJson.getPassword());
-        return createGoodResponse(new AuthorizationResponse(token,new UserInfoResponse()));
+        return createGoodResponse(new AuthorizationResponse(token,new UserInfoResponse(user)));
     }
 
     @RequestMapping(value = "/sign_up", method = RequestMethod.POST)

@@ -26,7 +26,7 @@ public class Place extends AbstractEntity {
     private Trip trip;
 
     @OneToMany
-    private ArrayList<String> photos;
+    private List<Photo> photos;
 
     public Trip getTrip() {
         return trip;
@@ -52,11 +52,11 @@ public class Place extends AbstractEntity {
         this.date = date;
     }
 
-    public ArrayList<String> getPhotos() {
+    public List<Photo> getPhotos() {
         return photos;
     }
 
-    public void setPhotos(ArrayList<String> photos) {
+    public void setPhotos(ArrayList<Photo> photos) {
         this.photos = photos;
     }
 

@@ -20,7 +20,8 @@ public class User extends AbstractEntity {
 
     private String email;
 
-    private String image;
+    @OneToOne
+    private Photo image;
 
     private String username;
 
@@ -73,11 +74,11 @@ public class User extends AbstractEntity {
         this.email = email;
     }
 
-    public String getImage() {
+    public Photo getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(Photo image) {
         this.image = image;
     }
 
