@@ -1,5 +1,7 @@
 package ru.kpfu.itis.dmitryivanov.response;
 
+import ru.kpfu.itis.dmitryivanov.model.User;
+
 import java.util.Date;
 
 /**
@@ -22,6 +24,16 @@ public class UserInfoResponse {
     private Date birthDate;
 
     private String interests;
+
+    public UserInfoResponse(User user) {
+        this.setPhoneNumber(user.getPhoneNumber());
+        this.setEmail(user.getEmail());
+        this.setImage(user.getImage());
+        this.setUsername(user.getUsername());
+        this.setCountry(user.getCountry());
+        this.setFio(user.getFio());
+        this.setBirthDate(user.getBirthDate());
+    }
 
     public String getPhoneNumber() {
         return phoneNumber;

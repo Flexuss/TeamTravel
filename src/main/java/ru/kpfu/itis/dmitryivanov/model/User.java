@@ -1,5 +1,9 @@
 package ru.kpfu.itis.dmitryivanov.model;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import ru.kpfu.itis.dmitryivanov.requests.RequestUserRegistrationJson;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -35,6 +39,15 @@ public class User extends AbstractEntity {
 
     @ManyToMany
     private List<User> friends;
+
+    public User(RequestUserRegistrationJson requestUserRegistrationJson) {
+        PasswordEncoder encoder = new BCryptPasswordEncoder();
+        this.setUsername(requestUserRegistrationJson.getUsername());
+        this.setFio(requestUserRegistrationJson.getFio());
+        this.setPassword(encoder.encode(requestUserRegistrationJson.getPassword()));
+        this.setEmail(requestUserRegistrationJson.getEmail());
+        this.setPhoneNumber(requestUserRegistrationJson.getPhoneNumber());
+    }
 
     public Date getBirthDate() {
         return birthDate;

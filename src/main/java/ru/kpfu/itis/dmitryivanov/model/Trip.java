@@ -22,12 +22,6 @@ public class Trip extends AbstractEntity {
 
     private String photo;
 
-    @OneToOne
-    private Place firstPlace;
-
-    @OneToOne
-    private Place lastPlace;
-
     @OneToMany
     private List<Place> places;
 
@@ -39,18 +33,6 @@ public class Trip extends AbstractEntity {
     private boolean isPrivate;
 
     private String password;
-
-    public Trip(User creator, String name, String info, Place firstPlace, Place lastPlace, List<Place> places, Integer maxUserCount, boolean isPrivate, String password) {
-        this.creator = creator;
-        this.name = name;
-        this.info = info;
-        this.firstPlace = firstPlace;
-        this.lastPlace = lastPlace;
-        this.places = places;
-        this.maxUserCount = maxUserCount;
-        this.isPrivate = isPrivate;
-        this.password = password;
-    }
 
     public String getPhoto() {
         return photo;
@@ -66,22 +48,6 @@ public class Trip extends AbstractEntity {
 
     public void setCreator(User creator) {
         this.creator = creator;
-    }
-
-    public Place getFirstPlace() {
-        return firstPlace;
-    }
-
-    public void setFirstPlace(Place firstPlace) {
-        this.firstPlace = firstPlace;
-    }
-
-    public Place getLastPlace() {
-        return lastPlace;
-    }
-
-    public void setLastPlace(Place lastPlace) {
-        this.lastPlace = lastPlace;
     }
 
     public boolean isPrivate() {

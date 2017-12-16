@@ -1,14 +1,15 @@
 package ru.kpfu.itis.dmitryivanov.response;
 
+import ru.kpfu.itis.dmitryivanov.model.Place;
 import ru.kpfu.itis.dmitryivanov.model.Trip;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Dmitry on 16.12.2017.
+ * Created by Dmitry on 14.12.2017.
  */
-public class TripResponse {
+public class TripInfoResponse {
+
     private Long id;
 
     private String name;
@@ -17,9 +18,37 @@ public class TripResponse {
 
     private String photo;
 
+    private List<PlaceResponse> places;
+
     private Integer maxUserCount;
 
     private Integer currentUserCount;
+
+    public TripInfoResponse(Trip trip, List<PlaceResponse> places){
+        this.setName(trip.getName());
+        this.setInfo(trip.getInfo());
+        this.setMaxUserCount(trip.getMaxUserCount());
+        this.setCurrentUserCount(trip.getUsers().size());
+        this.setPlaces(places);
+        this.setId(trip.getId());
+        this.setPhoto(trip.getPhoto());
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    public List<PlaceResponse> getPlaces() {
+        return places;
+    }
+
+    public void setPlaces(List<PlaceResponse> places) {
+        this.places = places;
+    }
 
     public Long getId() {
         return id;
@@ -45,14 +74,6 @@ public class TripResponse {
         this.info = info;
     }
 
-    public String getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(String photo) {
-        this.photo = photo;
-    }
-
     public Integer getMaxUserCount() {
         return maxUserCount;
     }
@@ -67,19 +88,5 @@ public class TripResponse {
 
     public void setCurrentUserCount(Integer currentUserCount) {
         this.currentUserCount = currentUserCount;
-    }
-
-    public static ArrayList<TripResponse> getTrips(ArrayList<Trip> trips) {
-        ArrayList<TripResponse> tripResponse = new ArrayList<>();
-        for(Trip trip: trips){
-            TripResponse newTrip = new TripResponse();
-            newTrip.setName(trip.getName());
-            newTrip.setInfo(trip.getInfo());
-            newTrip.setMaxUserCount(trip.getMaxUserCount());
-            newTrip.setCurrentUserCount(trip.getUsers().size());
-            newTrip.setId(trip.getId());
-            newTrip.setPhoto(trip.getPhoto());
-        }
-        return tripResponse;
     }
 }

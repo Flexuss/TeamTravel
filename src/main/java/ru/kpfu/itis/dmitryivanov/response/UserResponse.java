@@ -1,5 +1,7 @@
 package ru.kpfu.itis.dmitryivanov.response;
 
+import ru.kpfu.itis.dmitryivanov.model.User;
+
 /**
  * Created by Dmitry on 14.12.2017.
  */
@@ -9,6 +11,12 @@ public class UserResponse {
     private String username;
 
     private String fio;
+
+    public UserResponse(User user) {
+        this.setImage(user.getImage());
+        this.setUsername(user.getUsername());
+        this.setFio(user.getFio());
+    }
 
     public String getImage() {
         return image;

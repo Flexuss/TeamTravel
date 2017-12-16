@@ -14,19 +14,38 @@ public class Place extends AbstractEntity {
 
     private String name;
 
+    private String info;
+
     private Double lon;
 
     private Double lat;
 
     private Date date;
 
-    private ArrayList<String> photos;
+    @ManyToOne
+    private Trip trip;
 
     @OneToMany
-    private List<Event> events;
+    private ArrayList<String> photos;
+
+    public Trip getTrip() {
+        return trip;
+    }
+
+    public void setTrip(Trip trip) {
+        this.trip = trip;
+    }
 
     public Date getDate() {
         return date;
+    }
+
+    public String getInfo() {
+        return info;
+    }
+
+    public void setInfo(String info) {
+        this.info = info;
     }
 
     public void setDate(Date date) {
@@ -39,14 +58,6 @@ public class Place extends AbstractEntity {
 
     public void setPhotos(ArrayList<String> photos) {
         this.photos = photos;
-    }
-
-    public List<Event> getEvents() {
-        return events;
-    }
-
-    public void setEvents(List<Event> events) {
-        this.events = events;
     }
 
     public Double getLon() {

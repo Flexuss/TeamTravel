@@ -9,13 +9,21 @@ import java.util.List;
 public class PlaceRequestJson {
     private String name;
 
+    private String info;
+
     private Double lon;
 
     private Double lat;
 
     private Date date;
 
-    private List<EventRequestJson> events;
+    public String getInfo() {
+        return info;
+    }
+
+    public void setInfo(String info) {
+        this.info = info;
+    }
 
     public String getName() {
         return name;
@@ -47,13 +55,5 @@ public class PlaceRequestJson {
 
     public void setLat(Double lat) {
         this.lat = lat;
-    }
-
-    public List<EventRequestJson> getEvents() {
-        return events;
-    }
-
-    public void setEvents(List<EventRequestJson> events) {
-        this.events = events;
     }
 }

@@ -45,7 +45,6 @@ public class AuthController extends ResponseCreator {
             return createBadResponse("Wrong username or password!");
         }
         String token = securityService.generateToken(requestUserJson.getUsername(), requestUserJson.getPassword());
-
         return createGoodResponse(new AuthorizationResponse(token,new UserInfoResponse()));
     }
 
@@ -55,10 +54,7 @@ public class AuthController extends ResponseCreator {
         if (response != null) {
             return response;
         } else {
-
-            User user = new User();
-            user.setUsername(requestUserRegistrationJson.getUsername());
-            user.setPassword(encoder.encode(requestUserRegistrationJson.getPassword()));
+            User user = new User(requestUserRegistrationJson);
             userService.save(user);
             String token = securityService.generateToken(requestUserRegistrationJson.getUsername(), requestUserRegistrationJson.getPassword());
             return createGoodResponse(token);

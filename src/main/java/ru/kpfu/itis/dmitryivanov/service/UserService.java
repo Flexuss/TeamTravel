@@ -17,4 +17,6 @@ public interface UserService {
     Object findOneByEmail(String email);
 
     ArrayList<User> findAllByUsername(String username);
+
+    User findOneById(Long id);
 }

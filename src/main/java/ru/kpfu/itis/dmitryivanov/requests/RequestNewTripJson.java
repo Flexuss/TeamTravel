@@ -12,33 +12,13 @@ public class RequestNewTripJson {
 
     private String info;
 
-    private Place firstPlace;
-
-    private Place lastPlace;
-
-    private List<Place> places;
+    private List<PlaceRequestJson> places;
 
     private Integer maxUserCount;
 
     private boolean isPrivate;
 
     private String password;
-
-    public Place getFirstPlace() {
-        return firstPlace;
-    }
-
-    public void setFirstPlace(Place firstPlace) {
-        this.firstPlace = firstPlace;
-    }
-
-    public Place getLastPlace() {
-        return lastPlace;
-    }
-
-    public void setLastPlace(Place lastPlace) {
-        this.lastPlace = lastPlace;
-    }
 
     public boolean isPrivate() {
         return isPrivate;
@@ -72,11 +52,11 @@ public class RequestNewTripJson {
         this.info = info;
     }
 
-    public List<Place> getPlaces() {
+    public List<PlaceRequestJson> getPlaces() {
         return places;
     }
 
-    public void setPlaces(List<Place> places) {
+    public void setPlaces(List<PlaceRequestJson> places) {
         this.places = places;
     }
 
