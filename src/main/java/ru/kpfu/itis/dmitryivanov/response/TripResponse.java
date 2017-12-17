@@ -103,6 +103,9 @@ public class TripResponse {
 
     public static List<TripResponse> getTrips(List<Trip> trips) {
         ArrayList<TripResponse> tripResponse = new ArrayList<>();
+        if(trips.isEmpty()){
+            return tripResponse;
+        }
         for(Trip trip: trips){
             Place firstPlace = trip.getPlaces().get(0);
             Place lastPlace = trip.getPlaces().get(0);
