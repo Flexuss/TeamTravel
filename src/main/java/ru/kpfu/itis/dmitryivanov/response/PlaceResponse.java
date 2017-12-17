@@ -24,6 +24,19 @@ public class PlaceResponse {
 
     private List<Long> photos;
 
+    public PlaceResponse(Place place) {
+        setId(place.getId());
+        setName(place.getName());
+        setDate(place.getDate());
+        setLat(place.getLat());
+        setLon(place.getLon());
+        ArrayList<Long> photos = new ArrayList<>();
+        for(Photo photo:place.getPhotos()){
+            photos.add(photo.getId());
+        }
+        setPhotos(photos);
+    }
+
     public Long getId() {
         return id;
     }
@@ -75,17 +88,8 @@ public class PlaceResponse {
     public static List<PlaceResponse> getPlaces(List<Place> places) {
         List<PlaceResponse> placeResponse = new ArrayList<>();
         for(Place place:places){
-            PlaceResponse newPlace = new PlaceResponse();
-            newPlace.setId(place.getId());
-            newPlace.setName(place.getName());
-            newPlace.setDate(place.getDate());
-            newPlace.setLat(place.getLat());
-            newPlace.setLon(place.getLon());
-            ArrayList<Long> photos = new ArrayList<>();
-            for(Photo photo:place.getPhotos()){
-                photos.add(photo.getId());
-            }
-            newPlace.setPhotos(photos);
+            PlaceResponse newPlace = new PlaceResponse(place);
+            placeResponse.add(newPlace);
         }
         return placeResponse;
     }

@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ArrayList<User> findAllByUsername(String username) {
-        return userRepository.findAllByUsername(username);
+        return userRepository.findAllByUsernameLike("%"+username+"%");
     }
 
     @Override

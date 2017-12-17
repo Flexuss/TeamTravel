@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import ru.kpfu.itis.dmitryivanov.model.Place;
 import ru.kpfu.itis.dmitryivanov.model.User;
 import ru.kpfu.itis.dmitryivanov.repository.UserRepository;
@@ -13,6 +14,10 @@ import ru.kpfu.itis.dmitryivanov.model.Trip;
 import ru.kpfu.itis.dmitryivanov.requests.RequestNewTripJson;
 import ru.kpfu.itis.dmitryivanov.service.*;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 

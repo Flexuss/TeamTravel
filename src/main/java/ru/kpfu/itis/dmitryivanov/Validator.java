@@ -19,7 +19,7 @@ public class Validator extends ResponseCreator {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final String EMAIL_REGEX = "^[-a-z0-9!#$%&'*+/=?^_`{|}~]+(\\.[-a-z0-9!#$%&'*+/=?^_`{|}~]+)*@([a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?\\.)*(aero|arpa|asia|biz|cat|com|coop|edu|gov|info|int|jobs|mil|mobi|museum|name|net|org|pro|tel|travel|[a-z][a-z])$";
     private final String USER_NAMES_REGEX = "^([а-яА-ЯёЁa-zA-Z\\n]\\s*)+$";
-    private final String USERNAME = "^[a-zA-Z][a-zA-Z0-9-_\\.]{1,20}$";
+    private final String USERNAME = "^[a-zA-Z][a-zA-Z0-9-_\\.]{4,20}$";
     private final String PASSWORD_REGEX = ".{6,20}";
     private final String PHONE_REGEX = "^\\s*(?:\\+?(\\d{1,3}))?[-. (]*(\\d{3})[-. )]*(\\d{3})[-. ]*(\\d{4})(?: *x(\\d+))?\\s*$";
 

@@ -1,6 +1,7 @@
 package ru.kpfu.itis.dmitryivanov.response;
 
 import ru.kpfu.itis.dmitryivanov.model.Photo;
+import ru.kpfu.itis.dmitryivanov.model.Place;
 import ru.kpfu.itis.dmitryivanov.model.Trip;
 
 import java.util.ArrayList;
@@ -22,7 +23,27 @@ public class TripResponse {
 
     private Integer currentUserCount;
 
+    private PlaceResponse firstPlace;
+
+    private PlaceResponse lastPlace;
+
     private boolean isPrivate;
+
+    public PlaceResponse getFirstPlace() {
+        return firstPlace;
+    }
+
+    public void setFirstPlace(PlaceResponse firstPlace) {
+        this.firstPlace = firstPlace;
+    }
+
+    public PlaceResponse getLastPlace() {
+        return lastPlace;
+    }
+
+    public void setLastPlace(PlaceResponse lastPlace) {
+        this.lastPlace = lastPlace;
+    }
 
     public boolean isPrivate() {
         return isPrivate;
@@ -83,6 +104,16 @@ public class TripResponse {
     public static List<TripResponse> getTrips(List<Trip> trips) {
         ArrayList<TripResponse> tripResponse = new ArrayList<>();
         for(Trip trip: trips){
+            Place firstPlace = trip.getPlaces().get(0);
+            Place lastPlace = trip.getPlaces().get(0);
+            for(Place place:trip.getPlaces()){
+                if(place.getDate().getTime()<firstPlace.getDate().getTime()){
+                    firstPlace=place;
+                }
+                if (place.getDate().getTime()>lastPlace.getDate().getTime()){
+                    lastPlace=place;
+                }
+            }
             TripResponse newTrip = new TripResponse();
             newTrip.setName(trip.getName());
             newTrip.setInfo(trip.getInfo());
@@ -93,6 +124,8 @@ public class TripResponse {
                 newTrip.setPhoto(trip.getPhoto().getId());
             }
             newTrip.setPrivate(trip.isPrivate());
+            newTrip.setFirstPlace(new PlaceResponse(firstPlace));
+            newTrip.setLastPlace(new PlaceResponse(lastPlace));
             tripResponse.add(newTrip);
         }
         return tripResponse;

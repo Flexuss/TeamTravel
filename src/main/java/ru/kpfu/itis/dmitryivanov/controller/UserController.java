@@ -55,7 +55,9 @@ public class UserController extends ResponseCreator {
             if(friends.contains(user)){
                 newUser.setAllreadyFriend(true);
             }
-            users.add(newUser);
+            if(!user.equals(currentUser)) {
+                users.add(newUser);
+            }
         }
         return createGoodResponse(users);
     }
@@ -63,9 +65,17 @@ public class UserController extends ResponseCreator {
     @ApiImplicitParam(name = "Authorization", paramType = "header", required = true, dataType = "string")
     @RequestMapping(value = "/user_friends", method = RequestMethod.GET)
     private ResponseEntity<ApiResponse<ArrayList<UserResponse>>> findUserFriends(@RequestParam(value = "id", required = true) Long id){
+        User currentUser = securityService.getCurrentUser();
+        List<User> friends = friendService.getFriendsByUser(currentUser);
         ArrayList<UserResponse> users = new ArrayList<>();
         for(User user:friendService.getFriendsByUser(userService.findOneById(id))){
-            users.add(new UserResponse(user));
+            UserResponse newUser = new UserResponse(user);
+            if(friends.contains(user)){
+                newUser.setAllreadyFriend(true);
+            }
+            if(!user.equals(currentUser)) {
+                users.add(newUser);
+            }
         }
         return createGoodResponse(users);
     }
