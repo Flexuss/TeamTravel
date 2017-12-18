@@ -1,19 +1,30 @@
 package ru.kpfu.itis.dmitryivanov.controller;
 
+import com.sun.xml.internal.messaging.saaj.util.ByteOutputStream;
 import io.swagger.annotations.ApiImplicitParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import ru.kpfu.itis.dmitryivanov.model.Friend;
+import ru.kpfu.itis.dmitryivanov.model.Photo;
 import ru.kpfu.itis.dmitryivanov.model.Trip;
 import ru.kpfu.itis.dmitryivanov.response.*;
 import ru.kpfu.itis.dmitryivanov.model.User;
 import ru.kpfu.itis.dmitryivanov.service.FriendService;
+import ru.kpfu.itis.dmitryivanov.service.PhotoService;
 import ru.kpfu.itis.dmitryivanov.service.SecurityService;
 import ru.kpfu.itis.dmitryivanov.service.UserService;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by Dmitry on 14.12.2017.
@@ -31,6 +42,9 @@ public class UserController extends ResponseCreator {
 
     @Autowired
     FriendService friendService;
+
+    @Autowired
+    PhotoService photoService;
 
     @ApiImplicitParam(name = "Authorization", paramType = "header", required = true, dataType = "string")
     @RequestMapping(value = "/user", method = RequestMethod.GET)
@@ -116,5 +130,40 @@ public class UserController extends ResponseCreator {
             return createGoodResponse("Remove Success");
         }
         return createBadResponse("This user is not your friend");
+    }
+
+    @ApiImplicitParam(name = "Authorization", paramType = "header", required = true, dataType = "string")
+    @RequestMapping(value = "/change_avatar", method = RequestMethod.POST)
+    private ResponseEntity<ApiResponse<Long>> changeAvatar(@RequestPart("image")MultipartFile image){
+        User currentUser = securityService.getCurrentUser();
+        if(!image.isEmpty()){
+            try {
+                String name = currentUser.getUsername()+ UUID.randomUUID().toString();
+                byte[] bytes = image.getBytes();
+                File file = new File(System.getProperty("user.dir")+File.separator+name);
+                BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(new FileOutputStream(file));
+                bufferedOutputStream.write(bytes);
+                bufferedOutputStream.close();
+                String path = file.getAbsolutePath();
+                Photo photo = new Photo();
+                photo.setUser(currentUser);
+                photo.setPath(path);
+                photoService.save(photo);
+                currentUser.setImage(photo);
+                userService.save(currentUser);
+                return createGoodResponse(currentUser.getImage().getId());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return createBadResponse("Avatar change error");
+    }
+
+    @ApiImplicitParam(name = "Authorization", paramType = "header", required = true, dataType = "string")
+    @RequestMapping(value = "/get_avatar", method = RequestMethod.GET)
+    private ResponseEntity<ApiResponse<byte[]>> getAvatar(@RequestParam("id") Long id) throws IOException {
+        Photo photo = photoService.getOneById(id);
+        byte[] response = Files.readAllBytes(Paths.get(photo.getPath()));
+        return createGoodResponse(response);
     }
 }
