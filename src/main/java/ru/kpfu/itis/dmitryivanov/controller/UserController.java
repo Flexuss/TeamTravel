@@ -1,6 +1,5 @@
 package ru.kpfu.itis.dmitryivanov.controller;
 
-import com.sun.xml.internal.messaging.saaj.util.ByteOutputStream;
 import io.swagger.annotations.ApiImplicitParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +16,6 @@ import ru.kpfu.itis.dmitryivanov.service.PhotoService;
 import ru.kpfu.itis.dmitryivanov.service.SecurityService;
 import ru.kpfu.itis.dmitryivanov.service.UserService;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedOutputStream;
 import java.io.File;
