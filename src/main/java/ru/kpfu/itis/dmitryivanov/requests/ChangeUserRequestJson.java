@@ -1,23 +1,18 @@
-package ru.kpfu.itis.dmitryivanov.response;
-
-import ru.kpfu.itis.dmitryivanov.model.User;
+package ru.kpfu.itis.dmitryivanov.requests;
 
 import java.util.Date;
 
 /**
- * Created by Dmitry on 14.12.2017.
+ * Created by Dmitry on 18.12.2017.
  */
-public class UserInfoResponse {
-
-    private Long id;
-
+public class ChangeUserRequestJson {
     private String phoneNumber;
 
     private String email;
 
-    private Long image;
-
     private String username;
+
+    private String password;
 
     private String country;
 
@@ -26,27 +21,6 @@ public class UserInfoResponse {
     private Date birthDate;
 
     private String interests;
-
-    public UserInfoResponse(User user) {
-        this.setId(user.getId());
-        this.setPhoneNumber(user.getPhoneNumber());
-        this.setEmail(user.getEmail());
-        if(user.getImage()!=null) {
-            this.setImage(user.getImage().getId());
-        }else this.setImage(-1L);
-        this.setUsername(user.getUsername());
-        this.setCountry(user.getCountry());
-        this.setFio(user.getFio());
-        this.setBirthDate(user.getBirthDate());
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getPhoneNumber() {
         return phoneNumber;
@@ -64,20 +38,20 @@ public class UserInfoResponse {
         this.email = email;
     }
 
-    public Long getImage() {
-        return image;
-    }
-
-    public void setImage(Long image) {
-        this.image = image;
-    }
-
     public String getUsername() {
         return username;
     }
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getCountry() {

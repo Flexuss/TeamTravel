@@ -125,7 +125,7 @@ public class TripResponse {
             newTrip.setId(trip.getId());
             if(trip.getPhoto()!=null) {
                 newTrip.setPhoto(trip.getPhoto().getId());
-            }
+            }else newTrip.setPhoto(-1L);
             newTrip.setPrivate(trip.isPrivate());
             newTrip.setFirstPlace(new PlaceResponse(firstPlace));
             newTrip.setLastPlace(new PlaceResponse(lastPlace));

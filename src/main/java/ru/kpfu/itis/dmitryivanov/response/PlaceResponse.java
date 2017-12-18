@@ -34,6 +34,9 @@ public class PlaceResponse {
         for(Photo photo:place.getPhotos()){
             photos.add(photo.getId());
         }
+        if (photos.isEmpty()){
+            photos.add(-1L);
+        }
         setPhotos(photos);
     }
 

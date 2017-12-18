@@ -22,7 +22,7 @@ public class UserResponse {
         this.setFio(user.getFio());
         if(user.getImage()!=null) {
             this.setImage(user.getImage().getId());
-        }
+        }else this.setImage(-1L);
         this.setAllreadyFriend(false);
     }
 

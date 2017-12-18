@@ -35,7 +35,7 @@ public class TripInfoResponse {
         this.setId(trip.getId());
         if(trip.getPhoto()!=null) {
             this.setPhoto(trip.getPhoto().getId());
-        }
+        }else this.setPhoto(-1L);
         this.setPrivate(trip.isPrivate());
     }
 

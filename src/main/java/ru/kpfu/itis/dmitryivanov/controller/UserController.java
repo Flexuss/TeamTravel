@@ -1,5 +1,6 @@
 package ru.kpfu.itis.dmitryivanov.controller;
 
+import com.sun.xml.internal.messaging.saaj.util.ByteOutputStream;
 import io.swagger.annotations.ApiImplicitParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import ru.kpfu.itis.dmitryivanov.model.Friend;
 import ru.kpfu.itis.dmitryivanov.model.Photo;
 import ru.kpfu.itis.dmitryivanov.model.Trip;
+import ru.kpfu.itis.dmitryivanov.requests.ChangeUserRequestJson;
 import ru.kpfu.itis.dmitryivanov.response.*;
 import ru.kpfu.itis.dmitryivanov.model.User;
 import ru.kpfu.itis.dmitryivanov.service.FriendService;
@@ -15,6 +17,8 @@ import ru.kpfu.itis.dmitryivanov.service.PhotoService;
 import ru.kpfu.itis.dmitryivanov.service.SecurityService;
 import ru.kpfu.itis.dmitryivanov.service.UserService;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -159,10 +163,38 @@ public class UserController extends ResponseCreator {
     }
 
     @ApiImplicitParam(name = "Authorization", paramType = "header", required = true, dataType = "string")
-    @RequestMapping(value = "/get_avatar", method = RequestMethod.GET)
-    private ResponseEntity<ApiResponse<byte[]>> getAvatar(@RequestParam("id") Long id) throws IOException {
+    @RequestMapping(value = "/get_image", method = RequestMethod.GET)
+    private void getAvatar(@RequestParam("id") Long id, HttpServletResponse httpServletResponse){
         Photo photo = photoService.getOneById(id);
-        byte[] response = Files.readAllBytes(Paths.get(photo.getPath()));
-        return createGoodResponse(response);
+        if(photo==null){
+            httpServletResponse.setStatus(404);
+            return;
+        }
+        try {
+            byte[] response = Files.readAllBytes(Paths.get(photo.getPath()));
+            httpServletResponse.getOutputStream().write(response);
+            httpServletResponse.setStatus(200);
+            return;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        httpServletResponse.setStatus(404);
+    }
+
+    @ApiImplicitParam(name = "Authorization", paramType = "header", required = true, dataType = "string")
+    @RequestMapping(value = "/change_profile", method = RequestMethod.POST)
+    private ResponseEntity<ApiResponse<UserInfoResponse>> changeProfile(@RequestBody ChangeUserRequestJson changeUserRequestJson){
+        User currentUser = securityService.getCurrentUser();
+        currentUser.setFio(changeUserRequestJson.getFio());
+        currentUser.setUsername(changeUserRequestJson.getUsername());
+        currentUser.setPhoneNumber(changeUserRequestJson.getPhoneNumber());
+        currentUser.setEmail(changeUserRequestJson.getEmail());
+        currentUser.setPassword(changeUserRequestJson.getPassword());
+        currentUser.setBirthDate(changeUserRequestJson.getBirthDate());
+        currentUser.setCountry(changeUserRequestJson.getCountry());
+        currentUser.setInterests(changeUserRequestJson.getCountry());
+        userService.save(currentUser);
+        UserInfoResponse userInfoResponse = new UserInfoResponse(currentUser);
+        return createGoodResponse(userInfoResponse);
     }
 }
