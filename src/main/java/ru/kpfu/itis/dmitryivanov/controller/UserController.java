@@ -139,7 +139,7 @@ public class UserController extends ResponseCreator {
         User currentUser = securityService.getCurrentUser();
         if(!image.isEmpty()){
             try {
-                String name = currentUser.getUsername()+ UUID.randomUUID().toString();
+                String name = currentUser.getUsername().replaceAll(".","")+ UUID.randomUUID().toString();
                 byte[] bytes = image.getBytes();
                 File file = new File(System.getProperty("user.dir")+File.separator+name);
                 BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(new FileOutputStream(file));
