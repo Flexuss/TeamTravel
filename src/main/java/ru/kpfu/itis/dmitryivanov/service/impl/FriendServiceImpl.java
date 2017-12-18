@@ -34,4 +34,14 @@ public class FriendServiceImpl implements FriendService {
     public void save(Friend friend) {
         friendRepository.save(friend);
     }
+
+    @Override
+    public Friend getFriendsByUserAndFriend(User currentUser, User newFriend) {
+        return friendRepository.findOneByUserAndFriend(currentUser, newFriend);
+    }
+
+    @Override
+    public void remove(Friend friend) {
+        friendRepository.delete(friend);
+    }
 }

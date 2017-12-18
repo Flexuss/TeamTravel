@@ -3,6 +3,7 @@ package ru.kpfu.itis.dmitryivanov.model;
 import javax.jws.soap.SOAPBinding;
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -108,5 +109,25 @@ public class Trip extends AbstractEntity {
 
     public void setUsers(List<User> users) {
         this.users = users;
+    }
+
+    public Date getStartDate() {
+        Date startDate = getPlaces().get(0).getDate();
+        for(Place place: getPlaces()){
+            if(place.getDate().getTime()<startDate.getTime()){
+                startDate=place.getDate();
+            }
+        }
+        return startDate;
+    }
+
+    public Date getEndDate() {
+        Date endDate = getPlaces().get(0).getDate();
+        for(Place place: getPlaces()){
+            if(place.getDate().getTime()>endDate.getTime()){
+                endDate=place.getDate();
+            }
+        }
+        return endDate;
     }
 }

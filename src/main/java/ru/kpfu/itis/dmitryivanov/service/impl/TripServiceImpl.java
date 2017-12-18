@@ -2,6 +2,7 @@ package ru.kpfu.itis.dmitryivanov.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.kpfu.itis.dmitryivanov.model.Place;
 import ru.kpfu.itis.dmitryivanov.model.Trip;
 import ru.kpfu.itis.dmitryivanov.model.User;
 import ru.kpfu.itis.dmitryivanov.repository.TripRepository;
@@ -21,7 +22,7 @@ public class TripServiceImpl implements TripService {
     @Autowired
     TripRepository tripRepository;
     @Override
-    public void add(Trip trip) {
+    public void save(Trip trip) {
         tripRepository.save(trip);
     }
 
@@ -46,5 +47,10 @@ public class TripServiceImpl implements TripService {
     @Override
     public ArrayList<Trip> findAllByName(String name) {
         return tripRepository.findAllByName(name);
+    }
+
+    @Override
+    public Trip findOneByPlace(Place place) {
+        return place.getTrip();
     }
 }

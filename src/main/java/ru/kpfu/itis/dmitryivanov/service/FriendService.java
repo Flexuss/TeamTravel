@@ -12,4 +12,8 @@ public interface FriendService {
     List<User> getFriendsByUser(User currentUser);
 
     void save(Friend friend);
+
+    Friend getFriendsByUserAndFriend(User currentUser, User newFriend);
+
+    void remove(Friend friend);
 }

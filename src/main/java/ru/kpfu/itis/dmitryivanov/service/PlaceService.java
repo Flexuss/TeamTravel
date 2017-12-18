@@ -12,4 +12,6 @@ import java.util.List;
  */
 public interface PlaceService {
     ArrayList<Place> createPlaces(List<PlaceRequestJson> places, Trip trip);
+
+    List<Place> findAllByName(String placeName);
 }

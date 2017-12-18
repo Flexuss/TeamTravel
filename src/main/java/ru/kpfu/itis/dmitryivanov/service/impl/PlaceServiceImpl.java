@@ -36,4 +36,9 @@ public class PlaceServiceImpl implements PlaceService {
         placeRepository.save(resultPlaces);
         return placeRepository.findAllByTrip(trip);
     }
+
+    @Override
+    public List<Place> findAllByName(String placeName) {
+        return placeRepository.findAllByName(placeName);
+    }
 }

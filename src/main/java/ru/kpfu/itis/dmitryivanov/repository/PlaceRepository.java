@@ -17,4 +17,6 @@ import java.util.List;
 public interface PlaceRepository extends JpaRepository<Place, Long> {
 
     ArrayList<Place> findAllByTrip(Trip trip);
+
+    List<Place> findAllByName(String placeName);
 }

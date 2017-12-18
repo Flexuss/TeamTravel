@@ -95,10 +95,26 @@ public class UserController extends ResponseCreator {
     private ResponseEntity<ApiResponse<String>> addFriend(@RequestParam(value = "id", required = true) Long id){
         User currentUser = securityService.getCurrentUser();
         User newFriend = userService.findOneById(id);
-        Friend friend = new Friend();
-        friend.setUser(currentUser);
-        friend.setFriend(newFriend);
-        friendService.save(friend);
-        return createGoodResponse();
+        if(friendService.getFriendsByUserAndFriend(currentUser,newFriend)==null) {
+            Friend friend = new Friend();
+            friend.setUser(currentUser);
+            friend.setFriend(newFriend);
+            friendService.save(friend);
+            return createGoodResponse("Friend save success");
+        }
+        return createBadResponse("This user is already your friend");
+    }
+
+    @ApiImplicitParam(name = "Authorization", paramType = "header", required = true, dataType = "string")
+    @RequestMapping(value = "/remove_friend", method = RequestMethod.POST)
+    private ResponseEntity<ApiResponse<String>> removeFriend(@RequestParam(value = "id", required = true) Long id){
+        User currentUser = securityService.getCurrentUser();
+        User newFriend = userService.findOneById(id);
+        Friend friend = friendService.getFriendsByUserAndFriend(currentUser,newFriend);
+        if(friend!=null) {
+            friendService.remove(friend);
+            return createGoodResponse("Remove Success");
+        }
+        return createBadResponse("This user is not your friend");
     }
 }
