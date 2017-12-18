@@ -1,6 +1,5 @@
 package ru.kpfu.itis.dmitryivanov.controller;
 
-import com.sun.xml.internal.messaging.saaj.util.ByteOutputStream;
 import io.swagger.annotations.ApiImplicitParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -156,7 +155,7 @@ public class UserController extends ResponseCreator {
                 e.printStackTrace();
             }
         }
-        return createBadResponse("Avatar change error");
+        return createGoodResponse();
     }
 
     @ApiImplicitParam(name = "Authorization", paramType = "header", required = true, dataType = "string")
