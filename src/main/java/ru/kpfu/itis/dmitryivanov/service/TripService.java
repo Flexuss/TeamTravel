@@ -12,7 +12,7 @@ import java.util.Date;
  * Created by Dmitry on 30.10.2017.
  */
 public interface TripService {
-    void save(Trip trip);
+    Trip save(Trip trip);
 
     Trip findOneById(Long id);
 

@@ -56,8 +56,12 @@ public class TripController extends ResponseCreator {
         trip.setPlaces(places);
         User user = securityService.getCurrentUser();
         List<Trip> trips = user.getTrips();
+        Photo photo = photoService.getOneById(requestNewTripJson.getPhoto());
+        trip.setPhoto(photo);
         trips.add(trip);
         user.setTrips(trips);
+        photo.setTrip(trip);
+        photoService.save(photo);
         userService.save(user);
         tripService.save(trip);
         return createGoodResponse("Trip save success");

@@ -22,7 +22,7 @@ public class TripServiceImpl implements TripService {
     @Autowired
     TripRepository tripRepository;
     @Override
-    public void save(Trip trip) {
+    public Trip save(Trip trip) {return
         tripRepository.save(trip);
     }
 
