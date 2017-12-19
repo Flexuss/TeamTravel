@@ -215,4 +215,33 @@ public class TripController extends ResponseCreator {
         inviteService.save(invites);
         return createGoodResponse("Success invited");
     }
+
+    @ApiImplicitParam(name = "Authorization", paramType = "header", required = true, dataType = "string")
+    @RequestMapping(value = "/accept_invite", method = RequestMethod.POST)
+    public ResponseEntity<ApiResponse<String>> acceptInvite(@RequestBody Long id){
+        Invites invites = inviteService.findOneById(id);
+        User currentUser = securityService.getCurrentUser();
+        Trip trip = invites.getTrip();
+        List<User> tripUsers = trip.getUsers();
+        if(tripUsers.contains(currentUser)||trip.getCreator().equals(currentUser)){
+            return createBadResponse("You already join in this trip");
+        }
+        tripUsers.add(currentUser);
+        List<Trip> userTrips = currentUser.getTrips();
+        userTrips.add(trip);
+        userService.save(currentUser);
+        tripService.save(trip);
+        return createGoodResponse("Join success");
+    }
+
+    @ApiImplicitParam(name = "Authorization", paramType = "header", required = true, dataType = "string")
+    @RequestMapping(value = "/reject_invite", method = RequestMethod.POST)
+    public ResponseEntity<ApiResponse<String>> rejectInvite(@RequestBody Long id){
+        Invites invite = inviteService.findOneById(id);
+        if(invite==null){
+            return createBadResponse("Invite already deleted");
+        }
+        inviteService.delete(invite);
+        return createGoodResponse("You reject invite");
+    }
 }

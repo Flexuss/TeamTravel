@@ -5,16 +5,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import ru.kpfu.itis.dmitryivanov.model.Friend;
-import ru.kpfu.itis.dmitryivanov.model.Photo;
-import ru.kpfu.itis.dmitryivanov.model.Trip;
+import ru.kpfu.itis.dmitryivanov.Validator;
+import ru.kpfu.itis.dmitryivanov.model.*;
 import ru.kpfu.itis.dmitryivanov.requests.ChangeUserRequestJson;
 import ru.kpfu.itis.dmitryivanov.response.*;
-import ru.kpfu.itis.dmitryivanov.model.User;
-import ru.kpfu.itis.dmitryivanov.service.FriendService;
-import ru.kpfu.itis.dmitryivanov.service.PhotoService;
-import ru.kpfu.itis.dmitryivanov.service.SecurityService;
-import ru.kpfu.itis.dmitryivanov.service.UserService;
+import ru.kpfu.itis.dmitryivanov.service.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedOutputStream;
@@ -46,6 +41,12 @@ public class UserController extends ResponseCreator {
 
     @Autowired
     PhotoService photoService;
+
+    @Autowired
+    InviteService inviteService;
+
+    @Autowired
+    Validator validator;
 
     @ApiImplicitParam(name = "Authorization", paramType = "header", required = true, dataType = "string")
     @RequestMapping(value = "/user", method = RequestMethod.GET)
@@ -184,10 +185,16 @@ public class UserController extends ResponseCreator {
     private ResponseEntity<ApiResponse<UserInfoResponse>> changeProfile(@RequestBody ChangeUserRequestJson changeUserRequestJson){
         User currentUser = securityService.getCurrentUser();
         currentUser.setFio(changeUserRequestJson.getFio());
-        currentUser.setUsername(changeUserRequestJson.getUsername());
+        if(validator.isUsernameValid(changeUserRequestJson.getUsername())) {
+            currentUser.setUsername(changeUserRequestJson.getUsername());
+        }else return createBadResponse("Invalid username");
         currentUser.setPhoneNumber(changeUserRequestJson.getPhoneNumber());
-        currentUser.setEmail(changeUserRequestJson.getEmail());
-        currentUser.setPassword(changeUserRequestJson.getPassword());
+        if(validator.isEmailValid(changeUserRequestJson.getEmail())) {
+            currentUser.setEmail(changeUserRequestJson.getEmail());
+        }else return createBadResponse("Invalid email");
+        if(validator.isPasswordCorrect(changeUserRequestJson.getPassword())) {
+            currentUser.setPassword(changeUserRequestJson.getPassword());
+        }else return createBadResponse("Invalid password");
         currentUser.setBirthDate(changeUserRequestJson.getBirthDate());
         currentUser.setCountry(changeUserRequestJson.getCountry());
         currentUser.setInterests(changeUserRequestJson.getCountry());
@@ -195,4 +202,18 @@ public class UserController extends ResponseCreator {
         UserInfoResponse userInfoResponse = new UserInfoResponse(currentUser);
         return createGoodResponse(userInfoResponse);
     }
+
+    @ApiImplicitParam(name = "Authorization", paramType = "header", required = true, dataType = "string")
+    @RequestMapping(value = "/change_profile", method = RequestMethod.GET)
+    private ResponseEntity<ApiResponse<List<InviteResponse>>> getInvites(){
+        User currentUser = securityService.getCurrentUser();
+        List<Invites> invites = inviteService.getAllByUser(currentUser);
+        List<InviteResponse> inviteResponses = new ArrayList<>();
+        for(Invites invites1:invites){
+            inviteResponses.add(new InviteResponse(invites1));
+        }
+        return createGoodResponse(inviteResponses);
+    }
+
+
 }
