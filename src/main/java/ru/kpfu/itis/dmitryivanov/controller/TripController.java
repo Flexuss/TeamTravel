@@ -5,11 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import ru.kpfu.itis.dmitryivanov.model.Photo;
-import ru.kpfu.itis.dmitryivanov.model.Place;
-import ru.kpfu.itis.dmitryivanov.model.User;
+import ru.kpfu.itis.dmitryivanov.model.*;
+import ru.kpfu.itis.dmitryivanov.requests.TripInviteRequestJson;
 import ru.kpfu.itis.dmitryivanov.response.*;
-import ru.kpfu.itis.dmitryivanov.model.Trip;
 import ru.kpfu.itis.dmitryivanov.requests.RequestNewTripJson;
 import ru.kpfu.itis.dmitryivanov.service.*;
 
@@ -47,6 +45,9 @@ public class TripController extends ResponseCreator {
 
     @Autowired
     PhotoService photoService;
+
+    @Autowired
+    InviteService inviteService;
 
     @ApiImplicitParam(name = "Authorization", paramType = "header", required = true, dataType = "string")
     @RequestMapping(value = "/new_trip", method = RequestMethod.POST)
@@ -198,5 +199,20 @@ public class TripController extends ResponseCreator {
         return createGoodResponse("Leave success");
     }
 
-
+    @ApiImplicitParam(name = "Authorization", paramType = "header", required = true, dataType = "string")
+    @RequestMapping(value = "/invite_to_trip", method = RequestMethod.POST)
+    private ResponseEntity<ApiResponse<String>> inviteToTrip(@RequestBody TripInviteRequestJson tripInviteRequestJson){
+        User currentUser = securityService.getCurrentUser();
+        User invitedUser = userService.findOneById(tripInviteRequestJson.getUserId());
+        Trip trip = tripService.findOneById(tripInviteRequestJson.getUserId());
+        Invites invites = new Invites();
+        invites.setTrip(trip);
+        invites.setInvitedByUser(currentUser);
+        invites.setUser(invitedUser);
+        if(inviteService.getOneByInvitedByUserAndUserAndTrip(currentUser,invitedUser,trip)!=null){
+            return createBadResponse("Invite already send");
+        }
+        inviteService.save(invites);
+        return createGoodResponse("Success invited");
+    }
 }
