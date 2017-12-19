@@ -204,7 +204,7 @@ public class UserController extends ResponseCreator {
     }
 
     @ApiImplicitParam(name = "Authorization", paramType = "header", required = true, dataType = "string")
-    @RequestMapping(value = "/change_profile", method = RequestMethod.GET)
+    @RequestMapping(value = "/get_invites", method = RequestMethod.GET)
     private ResponseEntity<ApiResponse<List<InviteResponse>>> getInvites(){
         User currentUser = securityService.getCurrentUser();
         List<Invites> invites = inviteService.getAllByUser(currentUser);
