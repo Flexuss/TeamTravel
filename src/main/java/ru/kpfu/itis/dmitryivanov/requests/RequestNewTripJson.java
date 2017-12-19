@@ -12,6 +12,8 @@ public class RequestNewTripJson {
 
     private String info;
 
+    private Long photo;
+
     private List<PlaceRequestJson> places;
 
     private Integer maxUserCount;
@@ -58,6 +60,14 @@ public class RequestNewTripJson {
 
     public void setPlaces(List<PlaceRequestJson> places) {
         this.places = places;
+    }
+
+    public Long getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(Long photo) {
+        this.photo = photo;
     }
 
     public Integer getMaxUserCount() {

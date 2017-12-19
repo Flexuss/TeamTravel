@@ -21,6 +21,14 @@ public class Photo extends AbstractEntity {
     @ManyToOne
     private Trip trip;
 
+    public Trip getTrip() {
+        return trip;
+    }
+
+    public void setTrip(Trip trip) {
+        this.trip = trip;
+    }
+
     public User getUser() {
         return user;
     }

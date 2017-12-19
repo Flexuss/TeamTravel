@@ -3,6 +3,7 @@ package ru.kpfu.itis.dmitryivanov.response;
 import ru.kpfu.itis.dmitryivanov.model.Photo;
 import ru.kpfu.itis.dmitryivanov.model.Place;
 import ru.kpfu.itis.dmitryivanov.model.Trip;
+import ru.kpfu.itis.dmitryivanov.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,27 @@ public class TripResponse {
 
     private PlaceResponse lastPlace;
 
+    private boolean isUserAlreadyInTrip;
+
+    private boolean isUserCreator;
+
     private boolean isPrivate;
+
+    public boolean isUserAlreadyInTrip() {
+        return isUserAlreadyInTrip;
+    }
+
+    public void setUserAlreadyInTrip(boolean userAlreadyInTrip) {
+        isUserAlreadyInTrip = userAlreadyInTrip;
+    }
+
+    public boolean isUserCreator() {
+        return isUserCreator;
+    }
+
+    public void setUserCreator(boolean userCreator) {
+        isUserCreator = userCreator;
+    }
 
     public PlaceResponse getFirstPlace() {
         return firstPlace;
@@ -101,7 +122,7 @@ public class TripResponse {
         this.currentUserCount = currentUserCount;
     }
 
-    public static List<TripResponse> getTrips(List<Trip> trips) {
+    public static List<TripResponse> getTrips(List<Trip> trips, User currentUser) {
         ArrayList<TripResponse> tripResponse = new ArrayList<>();
         if(trips.isEmpty()){
             return tripResponse;
@@ -129,6 +150,8 @@ public class TripResponse {
             newTrip.setPrivate(trip.isPrivate());
             newTrip.setFirstPlace(new PlaceResponse(firstPlace));
             newTrip.setLastPlace(new PlaceResponse(lastPlace));
+            newTrip.setUserAlreadyInTrip(trip.getUsers().contains(currentUser));
+            newTrip.setUserCreator(trip.getCreator().equals(currentUser));
             tripResponse.add(newTrip);
         }
         return tripResponse;
