@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import ru.kpfu.itis.dmitryivanov.model.Place;
 import ru.kpfu.itis.dmitryivanov.model.User;
 import ru.kpfu.itis.dmitryivanov.response.*;
@@ -11,6 +12,10 @@ import ru.kpfu.itis.dmitryivanov.model.Trip;
 import ru.kpfu.itis.dmitryivanov.requests.RequestNewTripJson;
 import ru.kpfu.itis.dmitryivanov.service.*;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -40,8 +45,8 @@ public class TripController extends ResponseCreator {
 
     @ApiImplicitParam(name = "Authorization", paramType = "header", required = true, dataType = "string")
     @RequestMapping(value = "/new_trip", method = RequestMethod.POST)
-    public ResponseEntity<ApiResponse<String>> createNewTrip(@RequestPart("trip") RequestNewTripJson requestNewTripJson/*,
-                                                             @RequestPart("photo") MultipartFile file*/){
+    public ResponseEntity<ApiResponse<String>> createNewTrip(@RequestPart("trip") RequestNewTripJson requestNewTripJson,
+                                                             @RequestPart("photo") MultipartFile file){
         Trip trip = tripService.createNewTrip(requestNewTripJson, securityService.getCurrentUser());
         ArrayList<Place> places = placeService.createPlaces(requestNewTripJson.getPlaces(), trip);
         trip.setPlaces(places);
@@ -49,20 +54,20 @@ public class TripController extends ResponseCreator {
         List<Trip> trips = user.getTrips();
         trips.add(trip);
         user.setTrips(trips);
-//        if(!file.isEmpty()){
-//            try {
-//                String name = String.valueOf("asdasdasdasds");
-//                byte[] bytes;
-//                bytes = file.getBytes();
-//                BufferedOutputStream stream =
-//                        new BufferedOutputStream(new FileOutputStream(new File(this.getClass().getClassLoader().getResource("")+"//"+name)));
-//                stream.write(bytes);
-//                stream.close();
-//
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
+        if(!file.isEmpty()){
+            try {
+                String name = String.valueOf("asdasdasdasds");
+                byte[] bytes;
+                bytes = file.getBytes();
+                BufferedOutputStream stream =
+                        new BufferedOutputStream(new FileOutputStream(new File(this.getClass().getClassLoader().getResource("")+"//"+name)));
+                stream.write(bytes);
+                stream.close();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         userService.save(user);
         tripService.save(trip);
         return createGoodResponse("Trip save success");
