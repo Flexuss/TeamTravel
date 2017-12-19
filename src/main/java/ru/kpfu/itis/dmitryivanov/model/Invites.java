@@ -1,6 +1,7 @@
 package ru.kpfu.itis.dmitryivanov.model;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 
 /**
  * Created by Dmitry on 19.12.2017.
@@ -9,10 +10,13 @@ import javax.persistence.Entity;
 @Entity
 public class Invites extends AbstractEntity {
 
+    @OneToOne
     private User invitedByUser;
 
+    @OneToOne
     private User user;
 
+    @OneToOne
     private Trip trip;
 
     public User getInvitedByUser() {
