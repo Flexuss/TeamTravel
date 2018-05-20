@@ -9,11 +9,9 @@ import ru.kpfu.itis.dmitryivanov.model.Message;
 import ru.kpfu.itis.dmitryivanov.model.User;
 import ru.kpfu.itis.dmitryivanov.requests.RequestMessageJson;
 import ru.kpfu.itis.dmitryivanov.response.*;
-import ru.kpfu.itis.dmitryivanov.service.ChatService;
-import ru.kpfu.itis.dmitryivanov.service.MessageService;
-import ru.kpfu.itis.dmitryivanov.service.SecurityService;
-import ru.kpfu.itis.dmitryivanov.service.UserService;
+import ru.kpfu.itis.dmitryivanov.service.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -33,9 +31,12 @@ public class ChatController extends ResponseCreator {
     @Autowired
     UserService userService;
 
+    @Autowired
+    NotificationService notificationService;
+
     @ApiImplicitParam(name = "Authorization", paramType = "header", required = true, dataType = "string")
     @RequestMapping(value = "/message/send", method = RequestMethod.POST)
-    public ResponseEntity<ApiResponse<String>> sendMessage(@RequestBody RequestMessageJson requestNewTripJson){
+    public ResponseEntity<ApiResponse<String>> sendMessage(@RequestBody RequestMessageJson requestNewTripJson) throws IOException {
         User currentUser = securityService.getCurrentUser();
         Chat currentChat = chatService.getChatById(requestNewTripJson.getChatId());
         Message message = new Message();
@@ -43,6 +44,12 @@ public class ChatController extends ResponseCreator {
         message.setMessageDate(new Date());
         message.setMessageText(requestNewTripJson.getMessageText());
         message.setSender(currentUser);
+        List<User> users = currentChat.getChatUsers();
+        for(User user:users){
+            if(!user.getId().equals(currentUser.getId())){
+                notificationService.sendPushNotification(user.getId(),currentChat.getChatName(),requestNewTripJson.getMessageText());
+            }
+        }
         messageService.save(message);
         return createGoodResponse();
     }
