@@ -5,12 +5,13 @@ package ru.kpfu.itis.dmitryivanov.response;
  */
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import ru.kpfu.itis.dmitryivanov.response.ApiResponse;
 
 
 public abstract class ResponseCreator {
 
     protected <T> ResponseEntity<ApiResponse<T>> createGoodResponse(T body) {
-        return createResponse(body, HttpStatus.OK);
+        return createResponse(body, null, HttpStatus.OK);
     }
 
     protected <T> ResponseEntity<ApiResponse<T>> createGoodResponse() {
@@ -18,11 +19,11 @@ public abstract class ResponseCreator {
     }
 
     protected <T> ResponseEntity<ApiResponse<T>> createBadResponse(String error) {
-        return createResponse((T) error, HttpStatus.BAD_REQUEST);
+        return createResponse(null, error, HttpStatus.OK);
     }
 
-    private <T> ResponseEntity<ApiResponse<T>> createResponse(T body, HttpStatus status) {
-        return new ResponseEntity<>(new ApiResponse<>(body), status);
+    private <T> ResponseEntity<ApiResponse<T>> createResponse(T body, String error, HttpStatus status) {
+        return new ResponseEntity<>(new ApiResponse<>(body, error), status);
     }
 
 }
