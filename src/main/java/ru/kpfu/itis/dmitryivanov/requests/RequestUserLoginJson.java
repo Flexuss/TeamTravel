@@ -6,6 +6,15 @@ package ru.kpfu.itis.dmitryivanov.requests;
 public class RequestUserLoginJson {
     private String username;
     private String password;
+    private String deviceKey;
+
+    public String getDeviceKey() {
+        return deviceKey;
+    }
+
+    public void setDeviceKey(String deviceKey) {
+        this.deviceKey = deviceKey;
+    }
 
     public String getUsername() {
         return username;

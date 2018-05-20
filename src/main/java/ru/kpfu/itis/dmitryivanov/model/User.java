@@ -38,6 +38,12 @@ public class User extends AbstractEntity {
     @OneToMany
     private List<Trip> trips;
 
+    @OneToMany
+    private List<Device> devices;
+
+    @ManyToMany
+    private List<Chat> chats;
+
     public User() {
     }
 
@@ -48,6 +54,14 @@ public class User extends AbstractEntity {
         this.setPassword(encoder.encode(requestUserRegistrationJson.getPassword()));
         this.setEmail(requestUserRegistrationJson.getEmail());
         this.setPhoneNumber(requestUserRegistrationJson.getPhoneNumber());
+    }
+
+    public List<Device> getDevices() {
+        return devices;
+    }
+
+    public void setDevices(List<Device> devices) {
+        this.devices = devices;
     }
 
     public Date getBirthDate() {

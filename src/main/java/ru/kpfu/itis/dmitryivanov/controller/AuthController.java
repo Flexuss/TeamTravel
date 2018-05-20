@@ -13,6 +13,7 @@ import ru.kpfu.itis.dmitryivanov.response.ApiResponse;
 import ru.kpfu.itis.dmitryivanov.response.AuthorizationResponse;
 import ru.kpfu.itis.dmitryivanov.response.ResponseCreator;
 import ru.kpfu.itis.dmitryivanov.response.UserInfoResponse;
+import ru.kpfu.itis.dmitryivanov.service.DeviceService;
 import ru.kpfu.itis.dmitryivanov.service.SecurityService;
 import ru.kpfu.itis.dmitryivanov.service.UserService;
 
@@ -29,11 +30,12 @@ public class AuthController extends ResponseCreator {
     private UserService userService;
     @Autowired
     private SecurityService securityService;
+    @Autowired
+    private DeviceService deviceService;
 
 
     @RequestMapping(value = "/sign_in", method = RequestMethod.POST)
     public ResponseEntity<ApiResponse<AuthorizationResponse>> loginAndGetToken(@RequestBody RequestUserLoginJson requestUserJson) {
-
         User user = userService.findOneByUsername(requestUserJson.getUsername());
         if (user == null) {
             return createBadResponse("Wrong username or password!");
@@ -42,6 +44,7 @@ public class AuthController extends ResponseCreator {
             return createBadResponse("Wrong username or password!");
         }
         String token = securityService.generateToken(requestUserJson.getUsername(), requestUserJson.getPassword());
+        deviceService.setDeviceToUser(user, requestUserJson.getDeviceKey());
         return createGoodResponse(new AuthorizationResponse(token,new UserInfoResponse(user)));
     }
 
