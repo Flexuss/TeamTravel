@@ -23,7 +23,7 @@ public class ChatServiceImpl implements ChatService {
 
     @Override
     public Chat getChatByUsers(User currentUser, User user) {
-        List<Chat> userChats = chatRepository.findAllByUser(currentUser);
+        List<Chat> userChats = chatRepository.findAllByChatUsersContains(currentUser);
         for(Chat chat:userChats){
             if(chat.getChatUsers().size()==2&&chat.getChatUsers().contains(user)){
                 return chat;
