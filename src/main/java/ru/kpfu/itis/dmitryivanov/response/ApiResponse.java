@@ -7,11 +7,8 @@ public class ApiResponse<T> {
 
     private T responseData;
 
-    private String error;
-
-    public ApiResponse(T responseData, String error) {
+    public ApiResponse(T responseData) {
         this.responseData = responseData;
-        this.error = error;
     }
 
     public T getResponseData() {
@@ -20,14 +17,6 @@ public class ApiResponse<T> {
 
     public void setResponseData(T responseData) {
         this.responseData = responseData;
-    }
-
-    public String getError() {
-        return error;
-    }
-
-    public void setError(String errors) {
-        this.error = errors;
     }
 
 }

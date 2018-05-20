@@ -185,16 +185,6 @@ public class UserController extends ResponseCreator {
     private ResponseEntity<ApiResponse<UserInfoResponse>> changeProfile(@RequestBody ChangeUserRequestJson changeUserRequestJson){
         User currentUser = securityService.getCurrentUser();
         currentUser.setFio(changeUserRequestJson.getFio());
-        if(validator.isUsernameValid(changeUserRequestJson.getUsername())) {
-            currentUser.setUsername(changeUserRequestJson.getUsername());
-        }else return createBadResponse("Invalid username");
-        currentUser.setPhoneNumber(changeUserRequestJson.getPhoneNumber());
-        if(validator.isEmailValid(changeUserRequestJson.getEmail())) {
-            currentUser.setEmail(changeUserRequestJson.getEmail());
-        }else return createBadResponse("Invalid email");
-        if(validator.isPasswordCorrect(changeUserRequestJson.getPassword())) {
-            currentUser.setPassword(changeUserRequestJson.getPassword());
-        }else return createBadResponse("Invalid password");
         currentUser.setBirthDate(changeUserRequestJson.getBirthDate());
         currentUser.setCountry(changeUserRequestJson.getCountry());
         currentUser.setInterests(changeUserRequestJson.getCountry());
