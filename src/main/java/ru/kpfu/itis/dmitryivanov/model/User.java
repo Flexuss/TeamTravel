@@ -35,10 +35,10 @@ public class User extends AbstractEntity {
 
     private String interests;
 
-    @OneToMany
+    @ManyToMany
     private List<Trip> trips;
 
-    @OneToMany
+    @OneToMany(mappedBy = "user")
     private List<Device> devices;
 
     @ManyToMany
@@ -54,6 +54,14 @@ public class User extends AbstractEntity {
         this.setPassword(encoder.encode(requestUserRegistrationJson.getPassword()));
         this.setEmail(requestUserRegistrationJson.getEmail());
         this.setPhoneNumber(requestUserRegistrationJson.getPhoneNumber());
+    }
+
+    public List<Chat> getChats() {
+        return chats;
+    }
+
+    public void setChats(List<Chat> chats) {
+        this.chats = chats;
     }
 
     public List<Device> getDevices() {

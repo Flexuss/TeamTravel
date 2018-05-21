@@ -12,8 +12,16 @@ public class Chat extends AbstractEntity {
     private List<User> chatUsers;
     private String chatName;
 
-    @OneToMany
+    @OneToMany(mappedBy = "chat")
     private List<Message> messages;
+
+    public List<Message> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(List<Message> messages) {
+        this.messages = messages;
+    }
 
     public List<User> getChatUsers() {
         return chatUsers;

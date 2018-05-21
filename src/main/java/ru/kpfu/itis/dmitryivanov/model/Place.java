@@ -23,7 +23,7 @@ public class Place extends AbstractEntity {
     @ManyToOne
     private Trip trip;
 
-    @OneToMany
+    @OneToMany(mappedBy = "place")
     private List<Photo> photos;
 
     public Place() {

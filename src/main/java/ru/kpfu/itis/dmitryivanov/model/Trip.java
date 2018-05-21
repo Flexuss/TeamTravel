@@ -24,7 +24,7 @@ public class Trip extends AbstractEntity {
     @OneToOne
     private Photo photo;
 
-    @OneToMany
+    @OneToMany(mappedBy = "trip")
     private List<Place> places;
 
     private Integer maxUserCount;
