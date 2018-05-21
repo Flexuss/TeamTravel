@@ -21,7 +21,7 @@ public class NotificationServiceImpl implements NotificationService {
     @Autowired
     UserRepository userRepository;
 
-    public final static String AUTH_KEY_FCM = "AAAATMSyFKo:APA91bEZP9NCCqdV8_7I3R55xRLqLnQ0B4nbT7Yx6lxVOaBbzYOV0vh_YIM7bMQbxxxPS7clJvHjBQPRh_LBZKW5e6o0bN1LizHY9y7yPybB_oO19yeyh7tpXN8utxl8BQXVd8uN6R-7";
+    public final static String AUTH_KEY_FCM = "AAAACjsyp-Y:APA91bHiEeXTkg2Mj6rltTuSbvEOQTIo8q1kvMPc_HRgO-hUoIBvUZm717M4iLgOvImU4guJNnMDxZ41nhRGUIMEgwijnNbF_WAK4amk1XHFhhWetZrMdMtQdHcFIZ7izH42s6iwDEvo";
     public final static String API_URL_FCM = "https://fcm.googleapis.com/fcm/send";
 
 
