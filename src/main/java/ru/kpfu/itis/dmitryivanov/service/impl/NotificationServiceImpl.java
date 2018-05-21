@@ -47,6 +47,7 @@ public class NotificationServiceImpl implements NotificationService {
             JSONObject data = new JSONObject();
             data.put("to", device.getDeviceKey().trim());
             JSONObject info = new JSONObject();
+            info.put("type", 1);
             info.put("chatId", message.getChat().getId());
             info.put("senderFio", message.getSender().getFio());
             info.put("chatName", message.getChat().getChatName()); // Notification title
