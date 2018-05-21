@@ -8,7 +8,7 @@ public class ChatResponse {
     private String chatName;
     private Long chatId;
     private List<UserResponse> users;
-    private List<MessageResponse> messages;
+    private List<MessageInfoResponse> messages;
 
     public String getChatName() {
         return chatName;
@@ -34,11 +34,11 @@ public class ChatResponse {
         this.users = users;
     }
 
-    public List<MessageResponse> getMessages() {
+    public List<MessageInfoResponse> getMessages() {
         return messages;
     }
 
-    public void setMessages(List<MessageResponse> messages) {
+    public void setMessages(List<MessageInfoResponse> messages) {
         this.messages = messages;
     }
 }

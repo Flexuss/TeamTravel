@@ -4,7 +4,7 @@ public class ChatInfoResponse {
 
     private Long chatId;
     private String chatName;
-    private MessageResponse lastMessage;
+    private MessageInfoResponse lastMessage;
 
     public Long getChatId() {
         return chatId;
@@ -22,11 +22,11 @@ public class ChatInfoResponse {
         this.chatName = chatName;
     }
 
-    public MessageResponse getLastMessage() {
+    public MessageInfoResponse getLastMessage() {
         return lastMessage;
     }
 
-    public void setLastMessage(MessageResponse lastMessage) {
+    public void setLastMessage(MessageInfoResponse lastMessage) {
         this.lastMessage = lastMessage;
     }
 }

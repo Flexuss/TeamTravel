@@ -37,7 +37,7 @@ public class ChatController extends ResponseCreator {
 
     @ApiImplicitParam(name = "Authorization", paramType = "header", required = true, dataType = "string")
     @RequestMapping(value = "/message/send", method = RequestMethod.POST)
-    public ResponseEntity<ApiResponse<String>> sendMessage(@RequestBody RequestMessageJson requestNewTripJson) throws IOException {
+    public ResponseEntity<ApiResponse<MessageResponse>> sendMessage(@RequestBody RequestMessageJson requestNewTripJson) throws IOException {
         User currentUser = securityService.getCurrentUser();
         Chat currentChat = chatService.getChatById(requestNewTripJson.getChatId());
         Message message = new Message();
@@ -51,8 +51,10 @@ public class ChatController extends ResponseCreator {
                 notificationService.sendPushNotification(user.getId(),currentChat.getChatName(),requestNewTripJson.getMessageText());
             }
         }
-        messageService.save(message);
-        return createGoodResponse();
+        Message message1 = messageService.save(message);
+        MessageResponse messageResponse = new MessageResponse();
+        messageResponse.setMessageId(message1.getId());
+        return createGoodResponse(messageResponse);
     }
 
     @ApiImplicitParam(name = "Authorization", paramType = "header", required = true, dataType = "string")
@@ -69,17 +71,17 @@ public class ChatController extends ResponseCreator {
             users.add(new UserResponse(user1));
         }
         chatResponse.setUsers(users);
-        List<MessageResponse> messageResponses = new ArrayList<>();
+        List<MessageInfoResponse> messageInfoRespons = new ArrayList<>();
         for(Message message:messages){
-            MessageResponse messageResponse = new MessageResponse();
-            messageResponse.setMessageDate(message.getMessageDate());
-            messageResponse.setMessageText(message.getMessageText());
-            messageResponse.setSenderFio(message.getSender().getFio());
-            messageResponse.setMessageId(message.getId());
-            messageResponse.setSenderId(message.getSender().getId());
-            messageResponses.add(messageResponse);
+            MessageInfoResponse messageInfoResponse = new MessageInfoResponse();
+            messageInfoResponse.setMessageDate(message.getMessageDate());
+            messageInfoResponse.setMessageText(message.getMessageText());
+            messageInfoResponse.setSenderFio(message.getSender().getFio());
+            messageInfoResponse.setMessageId(message.getId());
+            messageInfoResponse.setSenderId(message.getSender().getId());
+            messageInfoRespons.add(messageInfoResponse);
         }
-        chatResponse.setMessages(messageResponses);
+        chatResponse.setMessages(messageInfoRespons);
         return createGoodResponse(chatResponse);
     }
 
@@ -94,13 +96,13 @@ public class ChatController extends ResponseCreator {
             ChatInfoResponse chatInfoResponse = new ChatInfoResponse();
             chatInfoResponse.setChatId(chat.getId());
             chatInfoResponse.setChatName(chat.getChatName());
-            MessageResponse messageResponse = new MessageResponse();
-            messageResponse.setSenderId(message.getSender().getId());
-            messageResponse.setMessageId(message.getId());
-            messageResponse.setSenderFio(message.getSender().getFio());
-            messageResponse.setMessageText(message.getMessageText());
-            messageResponse.setMessageDate(message.getMessageDate());
-            chatInfoResponse.setLastMessage(messageResponse);
+            MessageInfoResponse messageInfoResponse = new MessageInfoResponse();
+            messageInfoResponse.setSenderId(message.getSender().getId());
+            messageInfoResponse.setMessageId(message.getId());
+            messageInfoResponse.setSenderFio(message.getSender().getFio());
+            messageInfoResponse.setMessageText(message.getMessageText());
+            messageInfoResponse.setMessageDate(message.getMessageDate());
+            chatInfoResponse.setLastMessage(messageInfoResponse);
             chatInfoResponses.add(chatInfoResponse);
         }
         return createGoodResponse(chatInfoResponses);

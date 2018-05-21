@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface MessageService {
 
-    void save(Message message);
+    Message save(Message message);
 
     List<Message> getAllMessagesByChat(Chat chat);
 
