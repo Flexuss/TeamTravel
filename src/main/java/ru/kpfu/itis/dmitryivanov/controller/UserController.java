@@ -150,7 +150,7 @@ public class UserController extends ResponseCreator {
                 Photo photo = new Photo();
                 photo.setUser(currentUser);
                 photo.setPath(path);
-                photoService.save(photo);
+                photo = photoService.save(photo);
                 currentUser.setImage(photo);
                 userService.save(currentUser);
                 return createGoodResponse(currentUser.getImage().getId());
