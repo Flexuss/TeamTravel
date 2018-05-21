@@ -46,14 +46,15 @@ public class ChatController extends ResponseCreator {
         message.setMessageText(requestNewTripJson.getMessageText());
         message.setSender(currentUser);
         List<User> users = currentChat.getChatUsers();
+        message = messageService.save(message);
         for(User user:users){
             if(!user.getId().equals(currentUser.getId())){
-                notificationService.sendPushNotification(user.getId(),currentChat.getChatName(),requestNewTripJson.getMessageText());
+                notificationService.sendPushNotification(user.getId(),currentChat,message);
             }
         }
-        Message message1 = messageService.save(message);
+
         MessageResponse messageResponse = new MessageResponse();
-        messageResponse.setMessageId(message1.getId());
+        messageResponse.setMessageId(message.getId());
         return createGoodResponse(messageResponse);
     }
 

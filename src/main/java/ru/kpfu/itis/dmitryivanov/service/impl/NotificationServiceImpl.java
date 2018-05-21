@@ -3,7 +3,9 @@ package ru.kpfu.itis.dmitryivanov.service.impl;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.kpfu.itis.dmitryivanov.model.Chat;
 import ru.kpfu.itis.dmitryivanov.model.Device;
+import ru.kpfu.itis.dmitryivanov.model.Message;
 import ru.kpfu.itis.dmitryivanov.model.User;
 import ru.kpfu.itis.dmitryivanov.repository.UserRepository;
 import ru.kpfu.itis.dmitryivanov.service.NotificationService;
@@ -26,7 +28,7 @@ public class NotificationServiceImpl implements NotificationService {
 
 
     @Override
-    public void sendPushNotification(Long userId, String notificationTitle, String notificationInfo) throws IOException {
+    public void sendPushNotification(Long userId, Chat chat, Message message) throws IOException {
         String authKey = AUTH_KEY_FCM; // You FCM AUTH key
         String FMCurl = API_URL_FCM;
         User user = userRepository.findOne(userId);
@@ -45,8 +47,13 @@ public class NotificationServiceImpl implements NotificationService {
             JSONObject data = new JSONObject();
             data.put("to", device.getDeviceKey().trim());
             JSONObject info = new JSONObject();
-            info.put("title", notificationTitle); // Notification title
-            info.put("body", notificationInfo); // Notification body
+            info.put("chatId", message.getChat().getId());
+            info.put("senderFio", message.getSender().getFio());
+            info.put("chatName", message.getChat().getChatName()); // Notification title
+            info.put("messageText", message.getMessageText()); // Notification body
+            info.put("messageDate", message.getMessageDate());
+            info.put("receiverId", userId);
+            info.put("messageId", message.getId());
             data.put("data", info);
 
             OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
