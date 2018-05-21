@@ -10,4 +10,6 @@ public interface MessageService {
     void save(Message message);
 
     List<Message> getAllMessagesByChat(Chat chat);
+
+    Message getLastMessageInChat(Chat chat);
 }

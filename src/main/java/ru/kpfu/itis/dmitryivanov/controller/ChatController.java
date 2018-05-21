@@ -17,6 +17,7 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
+@RequestMapping(value = "/secure/")
 public class ChatController extends ResponseCreator {
 
     @Autowired
@@ -74,9 +75,34 @@ public class ChatController extends ResponseCreator {
             messageResponse.setMessageDate(message.getMessageDate());
             messageResponse.setMessageText(message.getMessageText());
             messageResponse.setSenderFio(message.getSender().getFio());
+            messageResponse.setMessageId(message.getId());
+            messageResponse.setSenderId(message.getSender().getId());
             messageResponses.add(messageResponse);
         }
         chatResponse.setMessages(messageResponses);
         return createGoodResponse(chatResponse);
+    }
+
+    @ApiImplicitParam(name = "Authorization", paramType = "header", required = true, dataType = "string")
+    @RequestMapping(value = "/chats", method = RequestMethod.GET)
+    public ResponseEntity<ApiResponse<List<ChatInfoResponse>>> getChats(){
+        User currentUser = securityService.getCurrentUser();
+        List<Chat> chats = chatService.getAllByUser(currentUser);
+        List<ChatInfoResponse> chatInfoResponses = new ArrayList<>();
+        for(Chat chat:chats){
+            Message message = messageService.getLastMessageInChat(chat);
+            ChatInfoResponse chatInfoResponse = new ChatInfoResponse();
+            chatInfoResponse.setChatId(chat.getId());
+            chatInfoResponse.setChatName(chat.getChatName());
+            MessageResponse messageResponse = new MessageResponse();
+            messageResponse.setSenderId(message.getSender().getId());
+            messageResponse.setMessageId(message.getId());
+            messageResponse.setSenderFio(message.getSender().getFio());
+            messageResponse.setMessageText(message.getMessageText());
+            messageResponse.setMessageDate(message.getMessageDate());
+            chatInfoResponse.setLastMessage(messageResponse);
+            chatInfoResponses.add(chatInfoResponse);
+        }
+        return createGoodResponse(chatInfoResponses);
     }
 }

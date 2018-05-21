@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import ru.kpfu.itis.dmitryivanov.model.Chat;
 import ru.kpfu.itis.dmitryivanov.model.User;
 import ru.kpfu.itis.dmitryivanov.repository.ChatRepository;
+import ru.kpfu.itis.dmitryivanov.response.ChatInfoResponse;
 import ru.kpfu.itis.dmitryivanov.service.ChatService;
 
 import java.util.ArrayList;
@@ -37,5 +38,10 @@ public class ChatServiceImpl implements ChatService {
         chat.setChatUsers(users);
         chatRepository.save(chat);
         return chat;
+    }
+
+    @Override
+    public List<Chat> getAllByUser(User currentUser) {
+        return chatRepository.findAllByChatUsersContains(currentUser);
     }
 }

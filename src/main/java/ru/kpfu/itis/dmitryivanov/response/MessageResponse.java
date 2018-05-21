@@ -4,9 +4,27 @@ import java.util.Date;
 
 public class MessageResponse {
 
+    private Long messageId;
     private String senderFio;
     private Date messageDate;
     private String messageText;
+    private Long senderId;
+
+    public Long getMessageId() {
+        return messageId;
+    }
+
+    public void setMessageId(Long messageId) {
+        this.messageId = messageId;
+    }
+
+    public Long getSenderId() {
+        return senderId;
+    }
+
+    public void setSenderId(Long senderId) {
+        this.senderId = senderId;
+    }
 
     public Date getMessageDate() {
         return messageDate;
