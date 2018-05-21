@@ -87,6 +87,32 @@ public class ChatController extends ResponseCreator {
     }
 
     @ApiImplicitParam(name = "Authorization", paramType = "header", required = true, dataType = "string")
+    @RequestMapping(value = "/message/get_chat", method = RequestMethod.GET)
+    public ResponseEntity<ApiResponse<ChatResponse>> getPublicChat(@RequestParam(value = "chatId") Long chatId){
+        Chat chat = chatService.getChatById(chatId);
+        List<Message> messages = messageService.getAllMessagesByChat(chat);
+        ChatResponse chatResponse = new ChatResponse();
+        chatResponse.setChatId(chat.getId());
+        List<UserResponse> users = new ArrayList<>();
+        for(User user1:chat.getChatUsers()){
+            users.add(new UserResponse(user1));
+        }
+        chatResponse.setUsers(users);
+        List<MessageInfoResponse> messageInfoRespons = new ArrayList<>();
+        for(Message message:messages){
+            MessageInfoResponse messageInfoResponse = new MessageInfoResponse();
+            messageInfoResponse.setMessageDate(message.getMessageDate());
+            messageInfoResponse.setMessageText(message.getMessageText());
+            messageInfoResponse.setSenderFio(message.getSender().getFio());
+            messageInfoResponse.setMessageId(message.getId());
+            messageInfoResponse.setSenderId(message.getSender().getId());
+            messageInfoRespons.add(messageInfoResponse);
+        }
+        chatResponse.setMessages(messageInfoRespons);
+        return createGoodResponse(chatResponse);
+    }
+
+    @ApiImplicitParam(name = "Authorization", paramType = "header", required = true, dataType = "string")
     @RequestMapping(value = "/chats", method = RequestMethod.GET)
     public ResponseEntity<ApiResponse<List<ChatInfoResponse>>> getChats(){
         User currentUser = securityService.getCurrentUser();
