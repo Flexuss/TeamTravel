@@ -33,18 +33,18 @@ public class NotificationServiceImpl implements NotificationService {
         String FMCurl = API_URL_FCM;
         User user = userRepository.findOne(userId);
         URL url = new URL(FMCurl);
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-
-        conn.setUseCaches(false);
-        conn.setDoInput(true);
-        conn.setDoOutput(true);
-
-        conn.setRequestMethod("POST");
-        conn.setRequestProperty("Authorization", "key=" + authKey);
-        conn.setRequestProperty("Content-Type", "application/json");
 
         for(Device device: user.getDevices()) {
             if (device != null && device.getDeviceKey() != null) {
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+                conn.setUseCaches(false);
+                conn.setDoInput(true);
+                conn.setDoOutput(true);
+
+                conn.setRequestMethod("POST");
+                conn.setRequestProperty("Authorization", "key=" + authKey);
+                conn.setRequestProperty("Content-Type", "application/json");
                 JSONObject data = new JSONObject();
                 data.put("to", device.getDeviceKey().trim());
                 JSONObject info = new JSONObject();
