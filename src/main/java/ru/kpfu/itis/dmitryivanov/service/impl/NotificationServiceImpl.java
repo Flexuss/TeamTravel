@@ -44,35 +44,37 @@ public class NotificationServiceImpl implements NotificationService {
         conn.setRequestProperty("Content-Type", "application/json");
 
         for(Device device: user.getDevices()) {
-            JSONObject data = new JSONObject();
-            data.put("to", device.getDeviceKey().trim());
-            JSONObject info = new JSONObject();
-            info.put("type", 1);
-            info.put("chatId", message.getChat().getId());
-            info.put("senderFio", message.getSender().getFio());
-            info.put("chatName", message.getChat().getChatName()); // Notification title
-            info.put("messageText", message.getMessageText()); // Notification body
-            info.put("messageDate", message.getMessageDate());
-            info.put("receiverId", userId);
-            info.put("messageId", message.getId());
-            data.put("data", info);
+            if (device != null && device.getDeviceKey() != null) {
+                JSONObject data = new JSONObject();
+                data.put("to", device.getDeviceKey().trim());
+                JSONObject info = new JSONObject();
+                info.put("type", 1);
+                info.put("chatId", message.getChat().getId());
+                info.put("senderFio", message.getSender().getFio());
+                info.put("chatName", message.getChat().getChatName()); // Notification title
+                info.put("messageText", message.getMessageText()); // Notification body
+                info.put("messageDate", message.getMessageDate());
+                info.put("receiverId", userId);
+                info.put("messageId", message.getId());
+                data.put("data", info);
 
-            OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
-            wr.write(data.toString());
-            wr.flush();
-            wr.close();
+                OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+                wr.write(data.toString());
+                wr.flush();
+                wr.close();
 
-            int responseCode = conn.getResponseCode();
-            System.out.println("Response Code : " + responseCode);
+                int responseCode = conn.getResponseCode();
+                System.out.println("Response Code : " + responseCode);
 
-            BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            String inputLine;
-            StringBuffer response = new StringBuffer();
+                BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                String inputLine;
+                StringBuffer response = new StringBuffer();
 
-            while ((inputLine = in.readLine()) != null) {
-                response.append(inputLine);
+                while ((inputLine = in.readLine()) != null) {
+                    response.append(inputLine);
+                }
+                in.close();
             }
-            in.close();
         }
     }
 }
