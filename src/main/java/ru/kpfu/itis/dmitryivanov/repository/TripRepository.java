@@ -15,5 +15,5 @@ import java.util.List;
 @Repository
 public interface TripRepository extends JpaRepository<Trip, Long> {
 
-    ArrayList<Trip> findAllByName(String name);
+    ArrayList<Trip> findAllByNameLikeIgnoreCase(String name);
 }

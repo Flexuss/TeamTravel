@@ -10,7 +10,6 @@ import ru.kpfu.itis.dmitryivanov.requests.RequestNewTripJson;
 import ru.kpfu.itis.dmitryivanov.service.TripService;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * Created by Dmitry on 30.10.2017.
@@ -46,7 +45,7 @@ public class TripServiceImpl implements TripService {
 
     @Override
     public ArrayList<Trip> findAllByName(String name) {
-        return tripRepository.findAllByName(name);
+        return tripRepository.findAllByNameLikeIgnoreCase(name);
     }
 
     @Override

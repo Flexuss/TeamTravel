@@ -187,7 +187,7 @@ public class UserController extends ResponseCreator {
         currentUser.setFio(changeUserRequestJson.getFio());
         currentUser.setBirthDate(changeUserRequestJson.getBirthDate());
         currentUser.setCountry(changeUserRequestJson.getCountry());
-        currentUser.setInterests(changeUserRequestJson.getCountry());
+        currentUser.setInterests(changeUserRequestJson.getInterests());
         userService.save(currentUser);
         UserInfoResponse userInfoResponse = new UserInfoResponse(currentUser);
         return createGoodResponse(userInfoResponse);
