@@ -95,16 +95,9 @@ public class TripController extends ResponseCreator {
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     public ResponseEntity<ApiResponse<List<TripResponse>>> searchTrip(@RequestParam(value = "placeName") String placeName){
         User currentUser = securityService.getCurrentUser();
-        List<Place> places = placeService.findAllByName(placeName);
-        List<Trip> trips = new ArrayList<>();
-        for(Place place:places){
-            Trip trip = tripService.findOneByPlace(place);
-            if(trip.getStartDate().getTime()>new Date().getTime()&&trip.getEndDate().getTime()>new Date().getTime()){
-                trips.add(trip);
-            }
-        }
-        List<TripResponse> tripResponse = TripResponse.getTrips(trips, currentUser);
-        return createGoodResponse(tripResponse);
+        List<Trip> trips = tripService.findAllByName(placeName);
+        List<TripResponse> tripResponses = TripResponse.getTrips(trips, currentUser);
+        return createGoodResponse(tripResponses);
     }
 
     @ApiImplicitParam(name = "Authorization", paramType = "header", required = true, dataType = "string")
